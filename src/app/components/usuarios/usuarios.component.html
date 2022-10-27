@@ -1,0 +1,86 @@
+<div class="mb-5 mt-5 d-flex justify-content-center">
+    <button mat-raised-button color="primary" routerLink="/auth/registro">Registrar nuevos usuarios</button>
+</div>
+
+<h1 class="text-center">Lista de usuarios</h1>
+<div class="d-flex flex-column align-items-center gap-5 mt-5">
+    <h2>Especialistas</h2>
+    
+    <table mat-table [dataSource]="especialistas" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre |titlecase}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="apellido">
+          <th mat-header-cell *matHeaderCellDef> Apellido </th>
+          <td mat-cell *matCellDef="let element"> {{element.apellido |titlecase }} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="dni">
+          <th mat-header-cell *matHeaderCellDef> DNI </th>
+          <td mat-cell *matCellDef="let element"> {{element.dni |titlecase}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email |titlecase}} </td>
+            
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="especialidad">
+          <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+          <td mat-cell *matCellDef="let element"> {{element.especialidad |titlecase}} </td>
+        </ng-container>
+
+        
+
+        <ng-container matColumnDef="habilitado">
+            <th mat-header-cell *matHeaderCellDef> Habilitado </th>
+            <td mat-cell *matCellDef="let element"><mat-slide-toggle name="habilitado" [checked]="element.habilitado" (change)="cambiarEstados($event,element.uid)"></mat-slide-toggle></td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="columnasEspecialistas"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasEspecialistas;"></tr>
+    </table>
+    <!-- <app-especialistas></app-especialistas> -->
+    <h2>Pacientes</h2>
+    <table mat-table [dataSource]="pacientes" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{element.nombre |titlecase}}</td>
+        </ng-container>
+        <ng-container matColumnDef="apellido">
+            <th mat-header-cell *matHeaderCellDef>Apellido</th>
+            <td mat-cell *matCellDef="let element">{{element.apellido |titlecase}}</td>
+        </ng-container>
+        <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef>Dnie</th>
+            <td mat-cell *matCellDef="let element">{{element.dni |titlecase}}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{element.email |titlecase}}</td>
+        </ng-container>
+        <ng-container matColumnDef="obraSocial">
+            <th mat-header-cell *matHeaderCellDef>Obra Social</th>
+            <td mat-cell *matCellDef="let element">{{element.obraSocial |titlecase}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnasPacientes"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasPacientes;"></tr>
+
+    </table>
+
+    <!-- <app-pacientes></app-pacientes> -->
+
+</div>

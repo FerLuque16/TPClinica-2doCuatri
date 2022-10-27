@@ -1,0 +1,59 @@
+.body{
+    height: calc(100vh + 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: hidden !important;
+}
+
+.registro{
+    width: 100%;
+    max-width: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: hidden !important;
+    /* text-align: center;*/
+}
+
+.ancho{
+    width: 80%;
+}
+.ancho__file{
+    width: 264px;
+}
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+}
+.file-name {
+    margin-left: 1rem; /* or whatever margin you require */
+}
+
+.registro{
+    transition: all 0.6s ease-out !important;
+}
+.img{
+    width: 30%;
+    margin-top: 5rem;
+}
+
+.img-registro{
+    cursor: pointer;
+}
+.img-registro:hover{
+    transform: scale(105%);
+}
+
+
+@media (min-width: 768px) {
+    /* .body{
+        padding-top: 0;
+        padding-bottom: 2rem;
+    }*/
+    .img{
+        width: 50%;
+        margin-top: 1rem;
+    } 
+}

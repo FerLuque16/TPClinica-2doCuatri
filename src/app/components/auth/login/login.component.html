@@ -1,0 +1,40 @@
+<div class="body">
+    <mat-spinner *ngIf="spinner"></mat-spinner>
+    <form class="login" *ngIf="!spinner" [formGroup]="loginForm">
+        <img src="./assets/img/usuario.png" alt="Imagen usuario" width="50%">
+        <h1>Login</h1>
+        <mat-form-field appearance="fill" class="ancho">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="loginForm.controls['email'].errors?.['required']">El email es obligatorio</mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].errors?.['email']">Debe ingresar un email valido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="ancho">
+            <mat-label>Ingrese su contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" style="border:none;">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.controls['password'].errors?.['required']">La contraseña es obligatoria</mat-error>
+        </mat-form-field>
+        <!-- <button mat-raised-button color="primary" class="ancho" (click)="login()">Ingresar</button> -->
+        <button mat-raised-button color="primary" class="ancho" (click)="login()">Ingresar</button>
+    </form>
+
+
+    <div class="d-flex flex-column align-items-center mt-5">
+        <h2>Usuarios para ingreso rapido</h2>
+        <div class="d-flex  gap-4">
+            <div class="d-flex flex-column" *ngFor="let item of  listaUsuarios">
+                <button mat-raised-button color="accent"  (click)="cargarDatos(item.email,item.password)"><img *ngIf="item.imagen1.startsWith('https')" [src]="item.imagen1" width="100px">
+                    <mat-spinner *ngIf="!item.imagen1.startsWith('https')"></mat-spinner>
+                </button>
+                <h3 class="text-center">{{item.nombre}} {{item.apellido}}</h3>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+

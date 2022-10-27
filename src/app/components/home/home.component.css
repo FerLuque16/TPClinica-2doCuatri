@@ -1,0 +1,24 @@
+mat-card:hover{
+    cursor: pointer;
+}
+.body{
+    height: calc(100vh - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    background-image: url('https://wallpaperaccess.com/full/1282794.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.example-card {
+    max-width: 300px;
+    /* height: 300px; */
+}
+
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+} 

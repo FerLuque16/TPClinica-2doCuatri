@@ -1,0 +1,125 @@
+<div class="body">
+    <mat-spinner *ngIf="spinner"></mat-spinner>
+
+    <h1 *ngIf="!tipoUsuario && !spinner">Seleccione que tipo de usuario quiere registrar</h1>
+    <div *ngIf="!tipoUsuario && !spinner" class="d-flex justify-content-center align-items-center gap-5">
+        <div class="d-flex flex-column align-items-center">
+            <button mat-raised-button color="accent"><img class="img-registro" src="./assets/img/paciente.png" width="300px" data-tipo="paciente" (click)="onRolSeleccionado($event)"></button>
+            
+            <h3 class="text-center">Paciente</h3>
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <button mat-raised-button color="primary"><img class="img-registro" src="./assets/img/doctor.png" width="300px" data-tipo="especialista" (click)="onRolSeleccionado($event)"></button>
+            
+            <h3 class="text-center">Medico</h3>
+        </div>    
+        <div *ngIf="rolLogueado == 'admin'" class="d-flex flex-column align-items-center">
+            <button mat-raised-button color="primary"><img class="img-registro" src="./assets/img/doctor.png" width="300px" data-tipo="admin" (click)="onRolSeleccionado($event)"></button>
+            
+            <h3 class="text-center">Admin</h3>
+        </div>    
+    </div>
+
+    <button class="mt-3" *ngIf="rolLogueado == 'admin'" routerLink="/usuarios" type="button" color="warn" mat-raised-button >Volver</button>
+    <button class="mt-3" *ngIf="rolLogueado != 'admin'" routerLink="/bienvenido" type="button" color="warn" mat-raised-button >Volver</button>
+    
+    <form  *ngIf="!spinner && tipoUsuario" [formGroup]="registroForm">
+        
+        <div class="registro">
+            <img src="./assets/img/usuario.png" alt="Imagen usuario" width="50%" height="100px"  class="img">
+            <h1>Registrar {{tipoUsuario}}</h1>
+            <mat-form-field appearance="fill" class="ancho">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre">
+                <mat-error *ngIf="registroForm.controls['nombre'].errors?.['required']">El nombre es obligatorio</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="ancho">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="apellido" >
+                <mat-error *ngIf="registroForm.controls['apellido'].errors?.['required']">El apellido es obligatorio</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="ancho">
+                <mat-label>Edad</mat-label>
+                <input matInput formControlName="edad">
+                <mat-error *ngIf="registroForm.controls['edad'].errors?.['required']">La edad es obligatoria</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="ancho">
+                <mat-label>DNI</mat-label>
+                <input matInput formControlName="dni">
+                <mat-error *ngIf="registroForm.controls['dni'].errors?.['required']">El DNI es obligatorio</mat-error>
+                <mat-error *ngIf="registroForm.controls['dni'].errors?.['min']">El DNI es demasiado corto</mat-error>
+                <mat-error *ngIf="registroForm.controls['dni'].errors?.['max']">El DNI es demasiado largo</mat-error>
+                <mat-hint>El DNI debe tener 8 caracteres </mat-hint>
+            </mat-form-field>
+            <!-- <mat-radio-group aria-label="Select an option" class="ancho mb-2" (change)="onEspecialidadSeleccionada($event)"
+            formControlName="rol">
+                <mat-radio-button value="paciente" checked="true" >Paciente</mat-radio-button>
+                <mat-radio-button value="especialista">Especialista</mat-radio-button>
+            </mat-radio-group>       -->
+            <mat-form-field *ngIf="tipoUsuario == 'paciente'" appearance="fill" class="ancho">
+                <mat-label>Obra Social</mat-label>
+                <input matInput formControlName="obraSocial">
+                <mat-error *ngIf="registroForm.controls['obraSocial'].errors?.['required']">La obra social es obligatoria</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="tipoUsuario == 'especialista'" appearance="fill" class="ancho">
+                <mat-label>Especialidad</mat-label>
+                <mat-select [(value)]="selected" (selectionChange)="cambio()" formControlName="especialidad">
+                  <mat-option *ngFor="let especialidad of especialidades"  [value]="especialidad.value" >
+                    {{especialidad.value}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="selected == 'Otro'" appearance="fill" class="ancho">
+                <mat-label>Ingrese especialidad</mat-label>
+                <input matInput formControlName="especialidad">
+                <mat-error *ngIf="registroForm.controls['especialidad'].errors?.['required']">La especialidad es obligatoria</mat-error>
+            </mat-form-field>
+           
+            <div class="ancho d-flex flex-column mb-3">
+                <div class="ancho d-flex flex-column mb-3">
+                    <mat-label>Imagen de perfil</mat-label>
+                    <button class="ancho__file" type="button" mat-raised-button color="primary" (click)="fileInput1.click()">Elija su imagen de perfil</button>
+                    <input hidden (change)="onFileSelected1($event)" #fileInput1 type="file" accept=".jpg, .png, .jpeg, .svg" formControlName="imagen1" >
+                    <span class="file-name" *ngIf="imagenPath1">{{imagenPath1}}</span>
+                    <mat-error *ngIf="registroForm.controls['imagen1'].errors?.['required']">Esta imagen es obligatoria</mat-error>
+                </div>
+                
+                <div class="ancho d-flex flex-column archivo" *ngIf="tipoUsuario == 'paciente'">
+                    <mat-label>Imagen de perfil</mat-label>
+                    <button class="ancho__file" type="button" mat-raised-button color="primary" (click)="fileInput2.click()">Elija su imagen de perfil</button>
+                    <input hidden (change)="onFileSelected2($event)" #fileInput2 type="file" accept=".jpg, .png, .jpeg, .svg"
+                    formControlName="imagen2">
+                    <span class="file-name" *ngIf="imagenPath2">{{imagenPath2}}</span>
+                    <mat-error *ngIf="registroForm.controls['imagen2'].errors?.['required']">Esta imagen es obligatoria</mat-error>
+
+                </div>
+            </div>
+            
+            <mat-form-field appearance="fill" class="ancho">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="registroForm.controls['email'].errors?.['required']">El emailes obligatorio</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="ancho">
+                <mat-label>Ingrese su contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" style="border:none;">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                
+                <mat-error *ngIf="registroForm.controls['password'].errors?.['required']">La contraseña es obligatoria</mat-error>
+                <mat-error *ngIf="registroForm.controls['password'].errors?.['minlength']">La contraseña debe tener 6 caracteres como minimo</mat-error>
+                <mat-hint>La contraseña debe tener 6 caracteres</mat-hint>
+
+            </mat-form-field>
+
+            
+            <button mat-raised-button color="primary" class="ancho mt-2" (click)="registrar()" [disabled]="!registroForm.valid">Registrarse</button>
+
+        </div>
+        <!-- <button class="mt-3" type="button" color="warn" mat-raised-button (click)="volver()">Volver</button> -->
+    </form>
+
+    
+</div>
+

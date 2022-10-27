@@ -1,0 +1,48 @@
+mat-card:hover{
+    cursor: pointer;
+}
+.body{
+    height: calc(100vh - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    background-image: url(https://preview.colorlib.com/theme/medcare/img/banner/xhome-banner.jpg.pagespeed.ic.hg2GNBINxX.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.example-card {
+    max-width: 300px;
+    /* height: 300px; */
+}
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+/* .banner-area{
+    min-height: 800px;
+    background-image: url(https://preview.colorlib.com/theme/medcare/img/banner/xhome-banner.jpg.pagespeed.ic.hg2GNBINxX.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+} */
+.titulo{
+    font-size: 45px;
+    color: #000;
+    font-weight: 500;
+    /* font-family: "Playfair Display",serif; */
+    margin-bottom: 30px;
+    line-height: 3rem;
+}
+
+.texto{
+    line-height: 1.75rem;
+    font-size: 1rem;
+    /* font-family: "Open Sans",sans-serif; */
+    font-weight: normal;
+}
