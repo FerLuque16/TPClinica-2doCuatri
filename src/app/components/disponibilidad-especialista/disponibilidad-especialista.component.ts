@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormBuilder,FormGroup, SelectControlValueAccessor, Validators } from '@angular/forms';
 import { Disponibilidad } from 'src/app/interfaces/disponibilidad.interface';
 import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class DisponibilidadEspecialistaComponent implements OnInit {
 
   @Input() especialidades!:string[];
   @Input() especialista!: Usuario;
-  constructor(private especialidadService: EspecialidadesService, private userService: UsuarioService,private disponibilidadService: DisponibilidadService,private fb :FormBuilder) {
+  constructor(private especialidadService: EspecialidadesService, private userService: UsuarioService,private disponibilidadService: DisponibilidadService,
+    private fb :FormBuilder,private snackBar: MatSnackBar) {
     this.disponibilidadForm = fb.group({
       horaDesde:['',[Validators.required]],
       horaHasta:['',[Validators.required]]
@@ -36,10 +38,8 @@ export class DisponibilidadEspecialistaComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.especialista);
+    // console.log(this.especialista);
     // console.log(this.crearIntervalos(30));
-
-    this.crearTurno();
   }
 
   guardarDisponibilidad(){
@@ -57,9 +57,11 @@ export class DisponibilidadEspecialistaComponent implements OnInit {
     }
 
 
-    console.log(this.disponibilidad);
+    // console.log(this.disponibilidad);
     this.disponibilidadService.guardarDisponibilidad(this.disponibilidad);
     this.especialidadSeleccionada = '';
+
+    this.snackBar.open('Disponibilidad guardada correctamente','Cerrar');
 
     // console.log(this.crearIntervalos(30, parseInt(disponibilidad.horaDesde), parseInt(disponibilidad.horaHasta)));
 
@@ -68,36 +70,28 @@ export class DisponibilidadEspecialistaComponent implements OnInit {
   }
 
   seleccionarEspecialidad($event:any){
-    console.log($event.target.value);
+    // console.log($event.target.value);
     this.especialidadSeleccionada = $event.target.value
   }
 
   validarHora(){
-    let horaDesde = this.disponibilidadForm.get('horaDesde')?.value;
-    let horaHasta = this.disponibilidadForm.get('horaHasta')?.value;
+    let horaDesde = parseInt(this.disponibilidadForm.get('horaDesde')?.value);
+    let horaHasta = parseInt(this.disponibilidadForm.get('horaHasta')?.value);
 
     if(horaDesde == horaHasta || horaDesde > horaHasta){
+
+      
       this.disponibilidadForm.get('horaHasta')?.setErrors({'igualMayor':true});
     }else{
       this.disponibilidadForm.get('horaHasta')?.setErrors(null);
     }
 
-    console.log(this.disponibilidadForm.value);
+    // console.log(this.disponibilidadForm.value);
   }
   formatearHorario(hora:string,minutos:string):string{
     return `${hora}:${minutos}`;
   }
 
-  crearTurno(){
-    var foo = [];
-    for (var i = 10; i <= 12; i++) {
-      var n = i%2==0 ? i/2+':00' : (i+1)/2-1+':30';
-        if(parseInt(n)<10) //zero-left padding
-      n = '0'+n;
-      foo.push(n);
-    }
-    console.log(foo);
-  }
 
   
 

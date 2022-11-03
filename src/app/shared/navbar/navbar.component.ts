@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.auth.getUserLogged().subscribe(async user =>{
       this.userLogueado = await this.userService.obtenerUsuario(user?.uid);
-      this.userRol = this.userLogueado.rol;
+      this.userRol = this.userLogueado?.rol;
       // console.log(this.userLogueado)
     })
   }

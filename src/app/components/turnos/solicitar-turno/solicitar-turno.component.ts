@@ -67,7 +67,7 @@ export class SolicitarTurnoComponent implements OnInit {
       this.user = await this.userService.obtenerUsuario(data?.uid);
       this.userRol = this.user?.rol;
 
-      console.log(this.user);
+      // console.log(this.user);
       
     })
 
@@ -100,7 +100,7 @@ export class SolicitarTurnoComponent implements OnInit {
 
 
 
-      console.log(this.especialidades);
+      // console.log(this.especialidades);
 
       this.todasLasDisponibilidades = data;
 
@@ -127,7 +127,7 @@ export class SolicitarTurnoComponent implements OnInit {
 
     this.especialidad = especialidad;
 
-    console.log(this.disponibilidadesFiltradas);
+    // console.log(this.disponibilidadesFiltradas);
 
     this.disponibilidadesFiltradas.forEach( disp =>{
 
@@ -165,7 +165,7 @@ export class SolicitarTurnoComponent implements OnInit {
     
     this.horarios = this.disponibilidadesFiltradas.filter( disp => disp.especialista.uid == especialista.uid)
 
-    console.log(this.horarios);
+    // console.log(this.horarios);
 
     let hoy = new Date();
 
@@ -195,7 +195,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.formInvalido = true;
     this.turnosForm.controls['fecha']?.patchValue(fecha);
     this.turnosForm.controls['hora']?.patchValue('');
-    console.log(fecha);
+    // console.log(fecha);
   }
 
   horaSeleccionada(hora:string){
@@ -244,7 +244,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turnosForm.controls['hora']?.patchValue(''); 
 
     
-    console.log(this.turno);
+    // console.log(this.turno);
   }
 
   getDatesInRange(startDate:Date, endDate:Date){
@@ -259,7 +259,7 @@ export class SolicitarTurnoComponent implements OnInit {
       date.setDate(date.getDate() + 1);
     }
 
-    console.log(dates);
+    // console.log(dates);
 
     dates.forEach( date => {
       // console.log(`${date.getDate()}/${date.getMonth()+1}`);

@@ -20,7 +20,7 @@
                 class="img-fluid" style="width: 150px;">
                 <mat-spinner *ngIf="!urlImagen"></mat-spinner>
               <h5 class="my-3">{{user?.nombre}}  {{user?.apellido}}</h5>
-              <p class="text-muted mb-1">Rol: {{user?.rol |titlecase}}</p>
+              <p class="mb-1 fw-bold">Rol: {{user?.rol |titlecase}}</p>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
                   <p class="mb-0">Nombre Completo</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user?.nombre |titlecase}}  {{user?.apellido |titlecase}}</p>
+                  <p class="mb-0 fw-bold">{{user?.nombre |titlecase}}  {{user?.apellido |titlecase}}</p>
                 </div>
               </div>
               <hr>
@@ -41,7 +41,7 @@
                   <p class="mb-0">Email</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user?.email}}</p>
+                  <p class="mb-0 fw-bold">{{user?.email}}</p>
                 </div>
               </div>
               <hr>
@@ -50,7 +50,7 @@
                   <p class="mb-0">Edad</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user?.edad}}</p>
+                  <p class="mb-0 fw-bold">{{user?.edad}}</p>
                 </div>
               </div>
               <hr>
@@ -59,7 +59,7 @@
                   <p class="mb-0">DNI</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user?.dni}}</p>
+                  <p class="mb-0 fw-bold">{{user?.dni}}</p>
                 </div>
               </div>
               <hr>

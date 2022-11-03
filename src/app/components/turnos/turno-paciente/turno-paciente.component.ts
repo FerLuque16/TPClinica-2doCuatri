@@ -48,8 +48,8 @@ export class TurnoPacienteComponent implements OnInit {
       this.turnoService.traerTurnos().subscribe(turnos =>{
         this.turnos = turnos.filter( tur => tur.paciente.uid == data?.uid)
 
-        console.log(data);
-        console.log(turnos);
+        // console.log(data);
+        // console.log(turnos);
       })
     })
   }

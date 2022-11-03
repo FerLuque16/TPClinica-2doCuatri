@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
   cargarIngresoRapido(){    
     this.userService.traerUsuarios().subscribe(
       usuarios =>{
-        console.log(usuarios);
+        // console.log(usuarios);
         usuarios.forEach(usuario => {          
           if(usuario.email == "64863abec5@inboxmail.life" && this.listaUsuarios.length < 6){
             this.listaUsuarios.push(usuario);

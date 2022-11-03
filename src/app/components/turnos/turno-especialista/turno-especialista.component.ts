@@ -28,8 +28,8 @@ export class TurnoEspecialistaComponent implements OnInit {
       this.turnoService.traerTurnos().subscribe(turnos =>{
         this.turnos = turnos.filter( tur => tur.especialista.uid == data?.uid)
 
-        console.log(data);
-        console.log(turnos);
+        // console.log(data);
+        // console.log(turnos);
       })
     })
   }
