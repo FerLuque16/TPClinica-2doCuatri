@@ -1,0 +1,14 @@
+<div class="body">
+    <div class="container">
+        <div class="row justify-content-center">
+            <h2>Seleccione la imagen del perro</h2>
+        </div>
+
+        <div class="row d-flex justify-content-around">
+            <button type="button" class="botonCaptcha" *ngFor="let opcion of opcionesDesordenadas" (click)="validarCaptcha(opcion)">
+                <img src="./assets/img/{{opcion}}.png" alt="imagen" width="25px" height="25px">
+            </button>
+        </div>
+
+    </div>
+</div>

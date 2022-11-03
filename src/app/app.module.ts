@@ -16,6 +16,10 @@ import { BienvenidoComponent } from './components/bienvenido/bienvenido.componen
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { UsuarioModule } from './components/usuarios/usuario.module';
+import { DisponibilidadEspecialistaComponent } from './components/disponibilidad-especialista/disponibilidad-especialista.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
     BienvenidoComponent,
     NavbarComponent,
     HomeComponent,
-    UsuariosComponent
+    PerfilComponent,
+    DisponibilidadEspecialistaComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,10 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
     AngularFireStorageModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    UsuarioModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

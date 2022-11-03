@@ -1,0 +1,18 @@
+li{
+    
+    background-color: darkslateblue;
+    color: whitesmoke;
+}
+
+img{
+    width: 2rem;
+}
+
+.ulEspec{
+    /* height: 50vh !important; */
+    width: 20rem;
+    overflow-y: scroll !important;    
+}
+#modal{
+    display: block;
+}

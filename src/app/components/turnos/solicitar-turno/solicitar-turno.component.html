@@ -1,0 +1,116 @@
+<div class="body vh-100 vw-100 d-flex justify-content-center align-items-center">
+    <div class="container">
+
+        <div class="row d-flex justify-content-around">
+            <div class="col-md-6">
+                <div *ngIf="especialidades.length > 0">
+                    <h3>Seleccione la especialidad</h3>
+
+                    <button mat-raised-button color="primary" class="m-2" *ngFor="let especialidad of especialidades" (click)="especialidadSeleccionada(especialidad)">
+                        {{especialidad | titlecase}} 
+                    </button>
+
+                </div>
+                <br>
+            
+                <div *ngIf="especialistas.length > 0" class="mt-2 m-2">
+                    <h3>Selecciones el especialista</h3>
+                    <button mat-raised-button color="primary" *ngFor="let especialista of especialistas" (click)="especialistaSeleccionada(especialista)">
+                        {{especialista.nombre | titlecase}} {{especialista.apellido}}
+                    </button>
+            
+                </div>
+            
+                <div class="mt-4" *ngIf="fechasParseadas.length > 0">
+                    <h3>Selecciones la fecha</h3>
+                    <button mat-raised-button color="accent" class="m-2" *ngFor="let fecha of fechasParseadas" (click)="fechaSeleccionada(fecha)">
+                        {{fecha}}
+                    </button>
+                </div>
+            
+                <div *ngIf="botonesHorarios.length > 0" class="mt-4" >
+
+                    <h3>Seleccione la hora</h3>
+                    <button mat-raised-button color="warn" class="m-2" *ngFor="let hora of botonesHorarios" (click)="horaSeleccionada(hora)">
+                        {{hora}}
+                    </button>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+
+                <div class="justify-content-center">
+                    
+                    <form [formGroup]="turnosForm">
+
+                        
+
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <!-- <p>El turno es para la especialidad {{especialidad |titlecase}}</p> -->
+                                <mat-form-field  appearance="fill" class="ancho">
+                                    <mat-label>Especialidad</mat-label>
+                                    <input matInput readonly formControlName="especialidad" style="text-transform: capitalize;"/>
+                                    
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <!-- <p>Nombre del doctor: <span *ngIf="especialista">{{especialista.nombre |titlecase}} {{especialista.apellido |titlecase}}</span></p> -->
+                                <mat-form-field appearance="fill" class="ancho">
+                                    <mat-label>Especialista</mat-label>
+                                    <input  matInput formControlName="especialista" />                                
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <!-- <input type="text" readonly [value]="fecha"> -->
+                                <mat-form-field appearance="fill" class="ancho">
+                                    <mat-label>Fecha</mat-label>
+                                    <input matInput  readonly="" formControlName="fecha" />                                
+                                </mat-form-field>
+                                
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <!-- <input type="text" readonly [value]="hora"> -->
+                                <mat-form-field appearance="fill" class="ancho">
+                                    <mat-label>Hora</mat-label>
+                                    <input matInput readonly formControlName="hora" />                                
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            
+                            <button mat-raised-button color="primary" type="submit" [disabled]="formInvalido" (click)="guardarTurno()">Solicitar turno</button>
+                        </div>
+
+                    </form>
+                        <!-- <input type="text" readonly [value]="especialidad"> -->
+                        
+                        <!-- <input type="text" readonly value="{{especialista.nombre}} {{especialista.apellido}}"> -->
+                        
+                        <!-- <input type="text" readonly value="{{especialista.nombre}} {{especialista.apellido}}"> -->
+                        
+                        
+        
+                        
+                    
+                </div>
+
+                
+
+            </div>
+        </div>
+    
+        
+    
+        
+    
+    
+    </div>
+</div>
+
+

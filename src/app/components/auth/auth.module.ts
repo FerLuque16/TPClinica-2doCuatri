@@ -7,13 +7,17 @@ import { RegistroComponent } from './registro/registro.component';
 import { VerificarEmailComponent } from './verificar-email/verificar-email.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { CaptchaComponent } from './captcha/captcha.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistroComponent,
-    VerificarEmailComponent
+    VerificarEmailComponent,
+    EspecialidadesComponent,
+    CaptchaComponent
   ],
   imports: [
     CommonModule,

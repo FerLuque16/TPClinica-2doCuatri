@@ -1,20 +1,21 @@
 .body{
-    height: calc(100vh + 64px);
+    /* height: 100%; */
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    overflow-y: hidden !important;
+    padding: 30px;
+    /* flex-direction: column; */
+    /* overflow-y: hidden !important; */
 }
 
 .registro{
-    width: 100%;
-    max-width: 330px;
+    
+    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow-y: hidden !important;
+    
     /* text-align: center;*/
 }
 
@@ -44,6 +45,10 @@
 }
 .img-registro:hover{
     transform: scale(105%);
+}
+
+.check{
+    width: 60px !important;
 }
 
 

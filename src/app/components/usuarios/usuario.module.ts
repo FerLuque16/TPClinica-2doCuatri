@@ -5,17 +5,20 @@ import { UsuarioRoutingModule } from './usuario-routing.module';
 import { EspecialistasComponent } from './especialistas/especialistas.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { MaterialModule } from 'src/app/material/material.module';
+import { UsuariosComponent } from './usuarios.component';
 
 
 @NgModule({
   declarations: [
+    UsuariosComponent,
     EspecialistasComponent,
     PacientesComponent
   ],
   imports: [
     CommonModule,
     UsuarioRoutingModule,
-    MaterialModule
+    MaterialModule,
+    
   ]
 })
 export class UsuarioModule { }

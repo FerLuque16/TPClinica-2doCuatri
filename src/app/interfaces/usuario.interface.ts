@@ -4,7 +4,7 @@ export interface Usuario{
     edad:number,
     dni:number,
     obraSocial?:string,
-    especialidad?:string,
+    especialidades?:string[],
     imagen1:string,
     imagen2?:string,
     email:string,
