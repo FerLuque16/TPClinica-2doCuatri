@@ -8,6 +8,7 @@ import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { FormBuilder,FormGroup, SelectControlValueAccessor, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-solicitar-turno',
@@ -51,7 +52,8 @@ export class SolicitarTurnoComponent implements OnInit {
 
   
 
-  constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService, private fb:FormBuilder){
+  constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService,
+     private turnoService: TurnosService, private authService: AuthService, private fb:FormBuilder, private snackBar: MatSnackBar){
     this.turnosForm = fb.group({
       especialista:[],
       especialidad:[],
@@ -223,10 +225,12 @@ export class SolicitarTurnoComponent implements OnInit {
     let turnoInvalido:Turno|undefined = await this.turnoService.devolverTurnoDB(this.turno.id);
 
     if(turnoInvalido) {
-      console.log('No se puede solicitar ese turno');
+      this.snackBar.open('No se puede solicitar este turno porque ya está tomado or otro paciente','Cerrar')
     }
     else{
       this.turnoService.guardarTurno(this.turno);
+      this.snackBar.open('Turno solicitado correctamente','Cerrar')
+      
     }
 
     this.formInvalido = true;

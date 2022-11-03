@@ -11,12 +11,14 @@ import { UsuarioService } from '../../services/usuario.service';
 export class NavbarComponent implements OnInit {
 
   userLogueado:any;
+  userRol!:string;
 
   constructor(private auth: AuthService, private router: Router, private userService: UsuarioService) { }
 
   ngOnInit(): void {
     this.auth.getUserLogged().subscribe(async user =>{
       this.userLogueado = await this.userService.obtenerUsuario(user?.uid);
+      this.userRol = this.userLogueado.rol;
       // console.log(this.userLogueado)
     })
   }

@@ -1,6 +1,10 @@
 <div class="body vh-100 vw-100 d-flex justify-content-center align-items-center">
     <div class="container">
 
+        <div class="row mb-5">
+            <h1 class="text-center ">Solicitar turno</h1>
+
+        </div>
         <div class="row d-flex justify-content-around">
             <div class="col-md-6">
                 <div *ngIf="especialidades.length > 0">
@@ -13,9 +17,9 @@
                 </div>
                 <br>
             
-                <div *ngIf="especialistas.length > 0" class="mt-2 m-2">
+                <div *ngIf="especialistas.length > 0" class="mt-2 ">
                     <h3>Selecciones el especialista</h3>
-                    <button mat-raised-button color="primary" *ngFor="let especialista of especialistas" (click)="especialistaSeleccionada(especialista)">
+                    <button mat-raised-button class="m-2" color="primary" *ngFor="let especialista of especialistas" (click)="especialistaSeleccionada(especialista)">
                         {{especialista.nombre | titlecase}} {{especialista.apellido}}
                     </button>
             
@@ -36,7 +40,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col d-flex justify-content-center align-items-center">
+            <div class="col d-flex justify-content-center align-items-center border-start border-dark">
 
                 <div class="justify-content-center">
                     
@@ -103,6 +107,10 @@
                 
 
             </div>
+        </div>
+
+        <div class="row mt-5">
+            <button mat-raised-button color="warn" class="w-25" routerLink="/home">Volver</button>
         </div>
     
         
