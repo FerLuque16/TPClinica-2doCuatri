@@ -1,1 +1,31 @@
-<p>turno-especialista works!</p>
+<div class=" d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped table-hover text-center tablaTurnos">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre de Paciente</th>
+                <th scope="col">Especialista</th>
+                <th scope="col">Especialidad</th>
+                <th scope="col">Fecha y hora</th>         
+                <th scope="col">Estado</th>         
+    
+            </tr>
+                    
+        </thead>
+        <tbody>
+            <tr class="trPointer" *ngFor="let turno of turnos" >           
+                <th scope="row" class="align-middle">{{ turno.paciente.nombre |titlecase}} {{turno.paciente.apellido |titlecase}}</th>
+                <td class="align-middle">{{ turno.especialista.nombre |titlecase }} {{ turno.especialista.apellido |titlecase}}</td>
+                <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
+                <td class="align-middle">{{ turno.fecha }} {{turno.hora}}</td>
+                <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
+                <td><button type="button" class="btn btn-outline-success" (click)="aceptarTurno()">Aceptar</button></td>
+                <td><button type="button" class="btn btn-outline-success" (click)="finalizarTurno()">Finalizar</button></td>
+                <td><button type="button" class="btn btn-outline-danger"  (click)="cancelarTurno()">Cancelar</button></td>
+                <td><button type="button" class="btn btn-outline-danger"  (click)="rechazarTurno()">Rechazar</button></td>
+                <td><button type="button" class="btn btn-outline-warning" (click)="mostrarResenia()">Ver reseña</button></td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
+

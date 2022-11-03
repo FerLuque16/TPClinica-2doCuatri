@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Disponibilidad } from 'src/app/interfaces/disponibilidad.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { Turno } from 'src/app/interfaces/turno.interface';
 import { AuthService } from 'src/app/services/auth.service';
 // import { UsuarioService } from 'src/app/services/turnos.service';
 import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
@@ -43,6 +44,10 @@ export class SolicitarTurnoComponent implements OnInit {
 
   turnosForm!:FormGroup;
   formInvalido: boolean = true;
+
+  idPaciente:string = '';
+
+  turno!:Turno;
 
   
 
@@ -105,6 +110,7 @@ export class SolicitarTurnoComponent implements OnInit {
   especialidadSeleccionada(especialidad:any){
 
 
+
     // console.log(especialista);
     this.formInvalido = true;
     this.especialidadesFiltradas = [];
@@ -127,6 +133,9 @@ export class SolicitarTurnoComponent implements OnInit {
     })
 
     this.turnosForm.controls['especialidad']?.patchValue(especialidad);
+    this.turnosForm.controls['especialista']?.patchValue('');
+    this.turnosForm.controls['fecha']?.patchValue('');
+    this.turnosForm.controls['hora']?.patchValue('');
 
     // this.disponibilidadesFiltradas.forEach( disp => {
     //   this.especialidadesFiltradas.push(disp.especialidad)
@@ -149,6 +158,8 @@ export class SolicitarTurnoComponent implements OnInit {
     this.botonesHorarios = [];
     this.formInvalido = true;
     this.turnosForm.controls['especialista']?.patchValue(`${especialista.nombre} ${especialista.apellido}`);
+    this.turnosForm.controls['fecha']?.patchValue('');
+    this.turnosForm.controls['hora']?.patchValue('');
     
     this.horarios = this.disponibilidadesFiltradas.filter( disp => disp.especialista.uid == especialista.uid)
 
@@ -181,6 +192,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.fecha = fecha;
     this.formInvalido = true;
     this.turnosForm.controls['fecha']?.patchValue(fecha);
+    this.turnosForm.controls['hora']?.patchValue('');
     console.log(fecha);
   }
 
@@ -190,20 +202,45 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turnosForm.controls['hora']?.patchValue(hora);
   }
 
-  guardarTurno(){
+  async guardarTurno(){
   //   especialidad: string = '';
   // especialista!: Usuario;
   // fecha: string = '';
   // hora:string = '';
-    let turno ={
-      especialidad: this.especialidad,
-      especialista: this.especialista,
-      paciente: this.user,
-      fecha: this.fecha,
-      hora: this.hora
+
+  this.idPaciente = this.user?.uid!;
+
+  this.turno ={
+    especialidad: this.especialidad,
+    especialista: this.especialista,
+    paciente: this.user!,
+    fecha: this.fecha,
+    hora: this.hora,
+    estado: 'solicitado',
+    id: this.especialista.uid + this.especialidad + Date.parse(this.fecha) + this.hora 
+  }
+
+    let turnoInvalido:Turno|undefined = await this.turnoService.devolverTurnoDB(this.turno.id);
+
+    if(turnoInvalido) {
+      console.log('No se puede solicitar ese turno');
+    }
+    else{
+      this.turnoService.guardarTurno(this.turno);
     }
 
-    console.log(turno);
+    this.formInvalido = true;
+    this.especialidadesFiltradas = [];
+    this.especialistas = [];
+    this.fechasParseadas = [];
+    this.botonesHorarios = [];
+    this.turnosForm.controls['especialidad']?.patchValue('');
+    this.turnosForm.controls['especialista']?.patchValue('');
+    this.turnosForm.controls['fecha']?.patchValue('');
+    this.turnosForm.controls['hora']?.patchValue(''); 
+
+    
+    console.log(this.turno);
   }
 
   getDatesInRange(startDate:Date, endDate:Date){

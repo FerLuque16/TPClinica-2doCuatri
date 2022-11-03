@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Turno } from '../interfaces/turno.interface';
+import { first, tap } from 'rxjs/operators';
 
 
 
@@ -9,17 +11,28 @@ import { Observable } from 'rxjs';
 })
 export class TurnosService {
 
-  itemsCollection !: AngularFirestoreCollection<any>;
-  turnos !: Observable<any>
+  itemsCollection !: AngularFirestoreCollection<Turno>;
+  turnos !: Observable<Turno[]>
   constructor(private firestore : AngularFirestore) { }
 
-  guardarTURNO(turno: any){
-    this.firestore.collection('turnos').add(turno);
+  guardarTurno(turno: Turno){
+    this.firestore.collection('turnos').doc(turno.id.toString()).set(turno,{merge:true});
   }
 
   traerTurnos(){
-    this.itemsCollection = this.firestore.collection<any>('turnos');
+    this.itemsCollection = this.firestore.collection<Turno>('turnos');
     return this.turnos = this.itemsCollection.valueChanges();
+  }
+
+  public async devolverTurnoDB(id:string | undefined){
+    return this.firestore
+      .collection<Turno>('turnos').doc(id)
+      .valueChanges()
+      .pipe(
+        tap((data) => data),
+        first()
+      )
+      .toPromise();
   }
 
   crearIntervalos (n:any, desde:any, hasta:any){
