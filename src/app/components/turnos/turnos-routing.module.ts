@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SolicitarTurnoComponent } from './solicitar-turno/solicitar-turno.component';
 import { TurnoEspecialistaComponent } from './turno-especialista/turno-especialista.component';
 import { TurnoPacienteComponent } from './turno-paciente/turno-paciente.component';
+import { TurnoTodosComponent } from './turno-todos/turno-todos.component';
 import { TurnosComponent } from './turnos.component';
 
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
 {
   path:'turnos-especialista',
   component:TurnoEspecialistaComponent
+},
+{
+  path:'turnos-todos',
+  component:TurnoTodosComponent
 }
 ];
 

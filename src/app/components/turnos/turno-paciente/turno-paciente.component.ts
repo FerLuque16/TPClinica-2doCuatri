@@ -6,6 +6,7 @@ import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { mergeMap } from 'rxjs';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-turno-paciente',
@@ -19,39 +20,30 @@ export class TurnoPacienteComponent implements OnInit {
   userUid!:string;
   userRol!:string | undefined;
 
+  dataSource!: any;
+
+  displayedColumns: string[] = ['nombre','especialistaNombre','especialistaApellido','especialidad','fecha','hora','estado']
+
+  
 
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    // this.authService.getUserLogged().subscribe(async data =>{
-    //   this.user = await this.userService.obtenerUsuario(data?.uid);
-    //   this.userRol = this.user?.rol;
-
-    //   console.log(this.user);
-      
-    // })
-
-    // this.turnoService.traerTurnos().subscribe(data => {
-    //   console.log(data);
-    //   data.forEach(tur =>{
-
-        
-    //     console.log(tur.paciente.uid, this.user?.uid);
-    //   });
-
-      
-    // })
-
     this.authService.getUserLogged().pipe(
       mergeMap( async res1 => this.user = await this.userService.obtenerUsuario(res1?.uid)) 
     ).subscribe( data => {
       this.turnoService.traerTurnos().subscribe(turnos =>{
         this.turnos = turnos.filter( tur => tur.paciente.uid == data?.uid)
-
+        this.dataSource = new MatTableDataSource(turnos)
         // console.log(data);
         // console.log(turnos);
       })
     })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   verResenia(){

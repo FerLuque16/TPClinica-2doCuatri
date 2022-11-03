@@ -12,6 +12,12 @@
             </mat-card-header>
             <img mat-card-image src="./assets/img/calendar-color-icon.png" height="300px" width="300px" alt="Turnos">        
         </mat-card>
+        <mat-card *ngIf="userRol == 'admin'" class="example-card" [routerLink]="'/turnos/turnos-todos'">
+          <mat-card-header class="justify-content-center">
+            <mat-card-title class="text-center">Turnos de la clinica</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src="./assets/img/calendar-color-icon.png" height="300px" width="300px" alt="Turnos">        
+      </mat-card>
         <mat-card *ngIf="userRol != 'especialista'" class="example-card" [routerLink]="'/turnos/solicitar-turno'">
             <mat-card-header class="justify-content-center">
               <mat-card-title class="text-center">Solicitar turno</mat-card-title>

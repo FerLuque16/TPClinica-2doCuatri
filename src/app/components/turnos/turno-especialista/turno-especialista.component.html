@@ -1,6 +1,12 @@
 <div class="body vh-100 pt-5">
     <div class="d-flex justify-content-center align-items-center flex-column">
-        <table class="table table-bordered table-striped table-hover text-center tablaTurnos">
+        <div class="text-center">
+            <h1>Turnos</h1>
+        </div>
+        <div *ngIf="turnos.length == 0" class="text-center">
+            <h3>No hay turnos cargados</h3>
+        </div>
+        <table *ngIf="turnos.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nombre de Paciente</th>

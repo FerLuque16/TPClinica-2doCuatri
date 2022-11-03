@@ -1,1 +1,37 @@
-<p>turno-todos works!</p>
+<div class="body vh-100 pt-5">
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <div class="text-center">
+            <h1>Turnos</h1>
+        </div>
+        <div *ngIf="turnos.length == 0" class="text-center">
+            <h3>No hay turnos cargados</h3>
+        </div>
+        <table *ngIf="turnos.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre de Paciente</th>
+                    <th scope="col">Especialista</th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Fecha y hora</th>         
+                    <th scope="col">Estado</th>         
+        
+                </tr>
+                        
+            </thead>
+            <tbody>
+                <tr class="trPointer" *ngFor="let turno of turnos" >           
+                    <th scope="row" class="align-middle">{{ turno.paciente.nombre |titlecase}} {{turno.paciente.apellido |titlecase}}</th>
+                    <td class="align-middle">{{ turno.especialista.nombre |titlecase }} {{ turno.especialista.apellido |titlecase}}</td>
+                    <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
+                    <td class="align-middle">{{ turno.fecha }} {{turno.hora}}</td>
+                    <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
+                    <td><button type="button" class="btn btn-outline-danger fs-6"  (click)="cancelarTurno()">Cancelar turno</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button mat-raised-button color="warn" routerLink="/home">Volver</button>
+    </div>
+    
+</div>
+
