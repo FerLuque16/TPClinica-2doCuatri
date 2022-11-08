@@ -6,6 +6,7 @@ import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { mergeMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-turno-especialista',
@@ -19,7 +20,10 @@ export class TurnoEspecialistaComponent implements OnInit {
   userUid!:string;
   userRol!:string | undefined;
 
-  constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService) { }
+  turnoAEnviar!: Turno;
+
+  constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.authService.getUserLogged().pipe(
@@ -50,5 +54,22 @@ export class TurnoEspecialistaComponent implements OnInit {
   }
   mostrarResenia(){
 
+  }
+
+  modificarEstadoTurno(turno:Turno, estado: string){
+
+    const data ={
+      estado: estado
+    }
+    this.turnoService.modificarTurno(data, turno.id);
+  }
+
+  enviarComentario(turno:Turno, estado: string){
+
+    this.turnoAEnviar = {...turno, estado:estado};
+
+    // console.log(this.turnoAEnviar);
+
+    // this.turnoService.modificarTurno(data, turno.id);
   }
 }

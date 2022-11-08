@@ -1,0 +1,30 @@
+<!-- Button trigger modal -->
+  
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <form [formGroup]="dataForm">
+
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 *ngIf="dataTurno" class="modal-title fs-5" id="exampleModalLabel">{{dataTurno.estado}}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetForm()"></button>
+            </div>
+            <div class="modal-body">
+               <!-- Message input -->
+               <div class="form-outline mb-4">
+                <textarea formControlName="comentario" class="form-control" rows="4" placeholder="Escriba aqui" name="texto">
+                </textarea>
+                
+                
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="dataForm.invalid" (click)="enviarDatos()">Enviar</button>
+            </div>
+          </div>
+        </div>
+    </form>
+</div>

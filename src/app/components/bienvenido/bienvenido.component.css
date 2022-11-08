@@ -2,13 +2,15 @@ mat-card:hover{
     cursor: pointer;
 }
 .body{
-    height: calc(100vh - 64px);
+    height: calc(100% - 52px);
+    /* height: 100%; */
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     flex-direction: column;
-    background-image: url(https://preview.colorlib.com/theme/medcare/img/banner/xhome-banner.jpg.pagespeed.ic.hg2GNBINxX.jpg);
+    /* background-image: url(https://preview.colorlib.com/theme/medcare/img/banner/xhome-banner.jpg.pagespeed.ic.hg2GNBINxX.jpg); */
+    background-image: url('/assets/img/bienvenido-fondo.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

@@ -24,6 +24,10 @@ export class TurnosService {
     return this.turnos = this.itemsCollection.valueChanges();
   }
 
+  modificarTurno(data: any, id: string){
+    this.firestore.collection('turnos').doc(id).set(data,{merge:true});
+  }
+
   public async devolverTurnoDB(id:string | undefined){
     return this.firestore
       .collection<Turno>('turnos').doc(id)
@@ -51,7 +55,9 @@ export class TurnosService {
               }else{
                   m = minutes;
               }
-            result.push(h + ':' + m);
+
+              let ampm = h >= 12 ? 'pm' : 'am';
+            result.push(h + ':' + m + ' ' + ampm);
         }
     }
     result.pop();

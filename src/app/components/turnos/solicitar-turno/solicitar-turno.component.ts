@@ -7,8 +7,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from '../../../services/usuario.service';
+import { EspecialidadesService } from '../../../services/especialidades.service';
 import { FormBuilder,FormGroup, SelectControlValueAccessor, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Especialidad } from 'src/app/interfaces/especialidad.interface';
+import { mergeMap } from 'rxjs';
+import { ImagenService } from 'src/app/services/imagen.service';
+
 
 @Component({
   selector: 'app-solicitar-turno',
@@ -50,10 +55,14 @@ export class SolicitarTurnoComponent implements OnInit {
 
   turno!:Turno;
 
+  especialidadesObjeto: Especialidad[] = [];
+  especialidadesFiltradasObjeto: Especialidad[] = [];
+
   
 
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService,
-     private turnoService: TurnosService, private authService: AuthService, private fb:FormBuilder, private snackBar: MatSnackBar){
+     private turnoService: TurnosService, private authService: AuthService, private fb:FormBuilder, private snackBar: MatSnackBar,
+     private especialidadService: EspecialidadesService, private imagenService: ImagenService){
     this.turnosForm = fb.group({
       especialista:[],
       especialidad:[],
@@ -71,42 +80,90 @@ export class SolicitarTurnoComponent implements OnInit {
       
     })
 
-    this.disponibilidadService.traerDisponibilidades().subscribe( data =>{
-      data.forEach(el => {
-        // console.log(this.especialistas.includes(el.especialista));
+    // this.authService.getUserLogged().pipe(
+    //   mergeMap( async res1 => this.user = await this.userService.obtenerUsuario(res1?.uid)) 
+    // ).subscribe( data => {
+    //   this.turnoService.traerTurnos().subscribe(turnos =>{
+    //     this.turnos = turnos.filter( tur => tur.paciente.uid == data?.uid)
+    //     this.dataSource = new MatTableDataSource(turnos)
+        
+    //   })
+    // })
 
-        if(!this.especialidades.includes(el.especialidad)){
+    this.especialidadService.traerTodasLasEspecialidades().pipe(
+      mergeMap( res1 => this.especialidadesObjeto = res1)
+    ).subscribe( dataEspecialidad =>{
+      this.disponibilidadService.traerDisponibilidades().subscribe( data =>{
+        data.forEach(el => {
+          // console.log(this.especialistas.includes(el.especialista));
+  
+          if(!this.especialidades.includes(el.especialidad)){
+  
+            this.especialidades.push(el.especialidad);
+          }
+        })
+        this.todasLasDisponibilidades = data;
 
-          this.especialidades.push(el.especialidad);
-        }
+        this.especialidadesObjeto.forEach(data =>{
+          this.especialidades.forEach(e =>{
+            if(e == data.descripcion && !this.especialidadesFiltradasObjeto.includes(data)){
+              this.imagenService.descargarImagen(data.urlFoto).subscribe(url =>{
+                console.log(url);
+                data.urlFoto = url;
+              })
+              this.especialidadesFiltradasObjeto.push(data)
+            }
+          }
+  
+          )
+        })
+        
+        
+       
+      })
+      
+      
+    })
+
+    console.log(this.especialidadesObjeto);
+    // this.especialidadesObjeto 
+
+    // this.disponibilidadService.traerDisponibilidades().subscribe( data =>{
+    //   data.forEach(el => {
+    //     console.log(this.especialistas.includes(el.especialista));
+
+    //     if(!this.especialidades.includes(el.especialidad)){
+
+    //       this.especialidades.push(el.especialidad);
+    //     }
 
 
 
 
-        // this.especialistas =  this.especialistas.filter(esp => {
+    //     this.especialistas =  this.especialistas.filter(esp => {
 
-        //   console.log(esp.uid,el.especialista.uid);
-        //   esp.uid != el.especialista.uid
-        // });
+    //       console.log(esp.uid,el.especialista.uid);
+    //       esp.uid != el.especialista.uid
+    //     });
         
 
-        // Object.keys()
-        // if(!this.especialistas.includes(el.especialista)){
-        //   console.log(this.especialistas);
-        //   console.log(el.especialista);
-        //   this.especialistas.push(el.especialista)
-        // }
-      })
+    //     Object.keys()
+    //     if(!this.especialistas.includes(el.especialista)){
+    //       console.log(this.especialistas);
+    //       console.log(el.especialista);
+    //       this.especialistas.push(el.especialista)
+    //     }
+    //   })
 
 
 
-      // console.log(this.especialidades);
+    //   // console.log(this.especialidades);
 
-      this.todasLasDisponibilidades = data;
+    //   this.todasLasDisponibilidades = data;
 
-      // console.log(this.disponibilidades);
-      // console.log(this.especialistas);
-    })
+    //   // console.log(this.disponibilidades);
+    //   // console.log(this.especialistas);
+    // })
   }
 
   especialidadSeleccionada(especialidad:any){
@@ -131,7 +188,15 @@ export class SolicitarTurnoComponent implements OnInit {
 
     this.disponibilidadesFiltradas.forEach( disp =>{
 
-      this.especialistas.push(disp.especialista); 
+      // console.log(disp.especialista);
+      if(!disp.especialista.imagen1.startsWith('https')){
+        this.imagenService.descargarImagen(disp.especialista.imagen1).subscribe(url =>{
+          disp.especialista.imagen1 = url;
+        })
+      }
+      
+      this.especialistas.push(disp.especialista);
+
     })
 
     this.turnosForm.controls['especialidad']?.patchValue(especialidad);

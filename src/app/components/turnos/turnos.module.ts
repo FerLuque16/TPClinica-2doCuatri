@@ -9,6 +9,7 @@ import { TurnoEspecialistaComponent } from './turno-especialista/turno-especiali
 import { TurnoTodosComponent } from './turno-todos/turno-todos.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalTurnoComponent } from './modal-turno/modal-turno.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SolicitarTurnoComponent,
     TurnoPacienteComponent,
     TurnoEspecialistaComponent,
-    TurnoTodosComponent
+    TurnoTodosComponent,
+    ModalTurnoComponent
   ],
   imports: [
     CommonModule,

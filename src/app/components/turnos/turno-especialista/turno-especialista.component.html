@@ -25,11 +25,33 @@
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
                     <td class="align-middle">{{ turno.fecha }} {{turno.hora}}</td>
                     <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
-                    <td><button type="button" class="btn btn-outline-success" (click)="aceptarTurno()">Aceptar</button></td>
-                    <td><button type="button" class="btn btn-outline-success" (click)="finalizarTurno()">Finalizar</button></td>
-                    <td><button type="button" class="btn btn-outline-danger"  (click)="cancelarTurno()">Cancelar</button></td>
-                    <td><button type="button" class="btn btn-outline-danger"  (click)="rechazarTurno()">Rechazar</button></td>
-                    <td><button type="button" class="btn btn-outline-warning" (click)="mostrarResenia()">Ver reseña</button></td>
+
+                    <td *ngIf="turno.estado!='aceptado' && turno.estado != 'realizado' && turno.estado != 'cancelado' && turno.estado != 'rechazado'">
+                        <button type="button"  class="btn btn-outline-success" value="aceptado" (click)="modificarEstadoTurno(turno,'aceptado')">
+                            Aceptar
+                        </button>
+                    </td>
+                    
+                    <td *ngIf="turno.estado == 'aceptado'" >
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"  class="btn btn-outline-success" (click)="enviarComentario(turno,'realizado')">
+                            Finalizar
+                        </button>
+                    </td>
+                    
+                    <td  *ngIf="turno.estado !='aceptado' && turno.estado!='cancelado' && turno.estado!='realizado' && turno.estado!='rechazado'">
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"  class="btn btn-outline-danger"  value="cancelado" (click)="enviarComentario(turno,'cancelado')">
+                            Cancelar
+                        </button>
+                    </td>
+                    <td *ngIf="turno.estado !='aceptado' && turno.estado!='rechazado' && turno.estado!='realizado' && turno.estado!='cancelado'">
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"  class="btn btn-outline-danger"  value="rechazado" (click)="enviarComentario(turno,'rechazado')">
+                            Rechazar</button>
+                        </td>
+                    <td>
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-warning" (click)="mostrarResenia()">
+                            Ver reseña
+                        </button>
+                    </td>
                     
                 </tr>
             </tbody>
@@ -37,7 +59,29 @@
     
         <button mat-raised-button color="warn" routerLink="/home">Volver</button>
     </div>
-
+    <app-modal-turno [dataTurno]="turnoAEnviar"></app-modal-turno>
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Encuesta Reseña</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+               <div class="form-outline mb-4">
+                <textarea class="form-control" rows="4" placeholder="Escriba aqui" name="texto">
+                </textarea>  
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>s
+            </div>
+          </div>
+        </div>
+    </div> -->
 </div>
+
 
 

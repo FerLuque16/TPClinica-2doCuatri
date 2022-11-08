@@ -7,5 +7,7 @@ export interface Turno{
     especialidad: string,
     fecha:string,
     hora:string,
-    estado:string
+    estado:string,
+    comentario?:string
+    
 }

@@ -1,0 +1,9 @@
+.btn-espec{
+    /* width: 16vh; */
+    height: 5vh;
+    font-size: large;
+}
+.img-espec{
+    max-width: 80%;
+    max-height: 80%;
+}

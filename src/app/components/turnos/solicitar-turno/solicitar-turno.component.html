@@ -8,25 +8,45 @@
         <div class="row d-flex justify-content-around">
             <div class="col-md-6">
                 <div *ngIf="especialidades.length > 0">
-                    <h3>Seleccione la especialidad</h3>
+                    <h3 class="fw-bold">Seleccione la especialidad</h3>
 
-                    <button mat-raised-button color="primary" class="m-2" *ngFor="let especialidad of especialidades" (click)="especialidadSeleccionada(especialidad)">
+                    <!-- <button mat-raised-button color="primary" class="m-2" *ngFor="let especialidad of especialidades" (click)="especialidadSeleccionada(especialidad)">
                         {{especialidad | titlecase}} 
-                    </button>
+                    </button> -->
+                    <div class="d-flex">
 
+                        <div *ngFor="let especialidad of especialidadesFiltradasObjeto" class="text-center">
+                            <button mat-raised-button color="primary" class="m-2 btn-espec rounded-circle" title="{{especialidad.descripcion | titlecase}}"  (click)="especialidadSeleccionada(especialidad.descripcion)">
+                                <img *ngIf="especialidad.urlFoto?.startsWith('https')" src="{{especialidad.urlFoto}}" alt="algo" class="img-espec rounded-circle">
+                            </button>
+                            <p class="fw-bold">{{especialidad.descripcion | titlecase}}</p>
+
+                        </div>
+                    </div>
+                    
+                    
                 </div>
                 <br>
             
-                <div *ngIf="especialistas.length > 0" class="mt-2 ">
-                    <h3>Selecciones el especialista</h3>
-                    <button mat-raised-button class="m-2" color="primary" *ngFor="let especialista of especialistas" (click)="especialistaSeleccionada(especialista)">
-                        {{especialista.nombre | titlecase}} {{especialista.apellido}}
-                    </button>
+                <div *ngIf="especialistas.length > 0" class="mt-2">
+                    <h3 class="fw-bold">Selecciones el especialista</h3>
+                    
+                    <div class="d-flex">
+                        <div *ngFor="let especialista of especialistas" class="text-center">
+                            <button mat-raised-button class="m-2 btn-espec rounded-circle" color="primary"  (click)="especialistaSeleccionada(especialista)">
+                                <img *ngIf="especialista.imagen1?.startsWith('https')" src="{{especialista.imagen1}}" alt="algo" class="img-espec rounded-circle">
+                            </button>
+                            <p class="fw-bold">{{especialista.nombre | titlecase}} {{especialista.apellido}}</p>
+                        </div>
+                    </div>
+                    
+
+                    
             
                 </div>
             
                 <div class="mt-4" *ngIf="fechasParseadas.length > 0">
-                    <h3>Selecciones la fecha</h3>
+                    <h3 class="fw-bold">Selecciones la fecha</h3>
                     <button mat-raised-button color="accent" class="m-2" *ngFor="let fecha of fechasParseadas" (click)="fechaSeleccionada(fecha)">
                         {{fecha}}
                     </button>
@@ -34,7 +54,7 @@
             
                 <div *ngIf="botonesHorarios.length > 0" class="mt-4" >
 
-                    <h3>Seleccione la hora</h3>
+                    <h3 class="fw-bold">Seleccione la hora</h3>
                     <button mat-raised-button color="warn" class="m-2" *ngFor="let hora of botonesHorarios" (click)="horaSeleccionada(hora)">
                         {{hora}}
                     </button>
