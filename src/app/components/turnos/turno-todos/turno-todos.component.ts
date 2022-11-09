@@ -18,6 +18,8 @@ export class TurnoTodosComponent implements OnInit {
   user!: Usuario | undefined;
   userUid!:string;
   userRol!:string | undefined;
+
+  turnoAEnviar!: Turno;
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -28,6 +30,15 @@ export class TurnoTodosComponent implements OnInit {
         this.turnos = turnos;
       })
     })
+  }
+
+  enviarComentario(turno:Turno, estado: string){
+
+    this.turnoAEnviar = {...turno, estado:estado};
+
+    // console.log(this.turnoAEnviar);
+
+    // this.turnoService.modificarTurno(data, turno.id);
   }
 
   cancelarTurno(){

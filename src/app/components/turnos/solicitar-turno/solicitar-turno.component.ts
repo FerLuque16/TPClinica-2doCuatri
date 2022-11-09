@@ -35,6 +35,7 @@ export class SolicitarTurnoComponent implements OnInit {
   especialista!: Usuario;
   fecha: string = '';
   hora:string = '';
+  paciente!:Usuario;
 
   horarios:any[] = [];
 
@@ -58,6 +59,10 @@ export class SolicitarTurnoComponent implements OnInit {
   especialidadesObjeto: Especialidad[] = [];
   especialidadesFiltradasObjeto: Especialidad[] = [];
 
+  esAdmin : boolean = false;
+  mostrarEspec : boolean = true;
+  todosLosPacientes : Usuario[] = []
+
   
 
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService,
@@ -67,14 +72,25 @@ export class SolicitarTurnoComponent implements OnInit {
       especialista:[],
       especialidad:[],
       fecha:[],
-      hora:[]
+      hora:[],
+      paciente:[]
     })
   }
 
   ngOnInit(): void {
     this.authService.getUserLogged().subscribe(async data =>{
       this.user = await this.userService.obtenerUsuario(data?.uid);
+      this.paciente = this.user!;
       this.userRol = this.user?.rol;
+
+      if(this.user?.rol == 'admin'){
+        this.esAdmin = true;
+        this.mostrarEspec = false;
+        this.userService.traerUsuarios().subscribe(usuarios =>{
+          this.todosLosPacientes = usuarios;
+          this.todosLosPacientes = this.todosLosPacientes.filter( pac => pac.rol == 'paciente');
+        })
+      }
 
       // console.log(this.user);
       
@@ -125,7 +141,7 @@ export class SolicitarTurnoComponent implements OnInit {
       
     })
 
-    console.log(this.especialidadesObjeto);
+    
     // this.especialidadesObjeto 
 
     // this.disponibilidadService.traerDisponibilidades().subscribe( data =>{
@@ -239,7 +255,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.fechas = this.getDatesInRange(hoy,fechaFutura);
 
     this.fechasParseadas = this.fechas.map(fecha =>{
-      return `${fecha.getDate()}/${fecha.getMonth()+1}`
+      return `${fecha.getDate()}/${fecha.getMonth()+1}/${fecha.getFullYear()}`
     })
 
     // console.log(fecha.getDate()+14, fecha.getMonth()+1);
@@ -276,16 +292,24 @@ export class SolicitarTurnoComponent implements OnInit {
   // hora:string = '';
 
   this.idPaciente = this.user?.uid!;
+  
+
+  let anio = this.fecha.split('/')[2]
+  let mes = this.fecha.split('/')[1]
+  let dia = this.fecha.split('/')[0]
+  let fechaParse = anio+'/'+mes+'/'+dia;
 
   this.turno ={
     especialidad: this.especialidad,
     especialista: this.especialista,
-    paciente: this.user!,
+    paciente: this.paciente,
     fecha: this.fecha,
     hora: this.hora,
     estado: 'solicitado',
-    id: this.especialista.uid + this.especialidad + Date.parse(this.fecha) + this.hora 
+    id: this.especialista.uid + this.especialidad + Date.parse(fechaParse) + this.hora 
   }
+
+    
 
     let turnoInvalido:Turno|undefined = await this.turnoService.devolverTurnoDB(this.turno.id);
 
@@ -306,7 +330,8 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turnosForm.controls['especialidad']?.patchValue('');
     this.turnosForm.controls['especialista']?.patchValue('');
     this.turnosForm.controls['fecha']?.patchValue('');
-    this.turnosForm.controls['hora']?.patchValue(''); 
+    this.turnosForm.controls['hora']?.patchValue('');
+    this.turnosForm.controls['paciente']?.patchValue(''); 
 
     
     // console.log(this.turno);
@@ -339,6 +364,26 @@ export class SolicitarTurnoComponent implements OnInit {
     // return fechasParseadas;
     return dates;
   }
+
+  cargarPaciente(paciente: Usuario){
+
+    
+    // this.especialidadesFiltradas = [];
+    this.especialistas = [];
+    this.fechasParseadas = [];
+    this.botonesHorarios = [];
+    this.turnosForm.controls['paciente']?.patchValue(`${paciente.nombre} ${paciente.apellido}`);
+    this.turnosForm.controls['especialidad']?.patchValue('');
+    this.turnosForm.controls['especialista']?.patchValue('');
+    this.turnosForm.controls['fecha']?.patchValue('');
+    this.turnosForm.controls['hora']?.patchValue(''); 
+
+
+    this.formInvalido = true;
+    this.mostrarEspec = true;
+    this.paciente = paciente;
+
+  }
   
   proximasDosSemanas(){
     var today = new Date();
@@ -346,6 +391,8 @@ export class SolicitarTurnoComponent implements OnInit {
     return nextweek;
 }
 
-
+formatoHora(){
+  // console.log(Date.parse());
+}
 
 }

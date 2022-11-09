@@ -47,8 +47,8 @@
                         <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"  class="btn btn-outline-danger"  value="rechazado" (click)="enviarComentario(turno,'rechazado')">
                             Rechazar</button>
                         </td>
-                    <td>
-                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-warning" (click)="mostrarResenia()">
+                    <td *ngIf="turno.comentario">
+                        <button data-bs-toggle="modal" data-bs-target="#modalComentario" type="button" class="btn btn-outline-warning" (click)="mostrarResenia(turno)">
                             Ver reseña
                         </button>
                     </td>
@@ -60,6 +60,7 @@
         <button mat-raised-button color="warn" routerLink="/home">Volver</button>
     </div>
     <app-modal-turno [dataTurno]="turnoAEnviar"></app-modal-turno>
+    <app-modal-comentario [comentarioTurno]="comentarioAEnviar"></app-modal-comentario>
     <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

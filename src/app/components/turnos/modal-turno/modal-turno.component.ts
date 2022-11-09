@@ -28,12 +28,23 @@ export class ModalTurnoComponent implements OnInit {
 
   enviarDatos(){
     console.log(this.dataTurno);
-    this.dataTurno.comentario = this.dataForm.get('comentario')?.value;
+
+    
+
+    if(this.dataTurno.estado == 'calificar'){
+      this.dataTurno.calificacion = this.dataForm.get('comentario')?.value;
+      this.dataTurno.estado = 'realizado';
+    }
+    else{
+      this.dataTurno.comentario = this.dataForm.get('comentario')?.value;
+    }
+    
     this.turnoService.modificarTurno(this.dataTurno, this.dataTurno.id);
     this.dataForm.reset();
   }
 
   resetForm(){
+    console.log(this.dataTurno);
     this.dataForm.reset();
   }
 

@@ -20,9 +20,8 @@ export class TurnoPacienteComponent implements OnInit {
   userUid!:string;
   userRol!:string | undefined;
 
-  dataSource!: any;
-
-  displayedColumns: string[] = ['nombre','especialistaNombre','especialistaApellido','especialidad','fecha','hora','estado']
+  turnoAEnviar!: Turno;
+  comentarioAEnviar!:Turno;
 
   
 
@@ -34,22 +33,34 @@ export class TurnoPacienteComponent implements OnInit {
     ).subscribe( data => {
       this.turnoService.traerTurnos().subscribe(turnos =>{
         this.turnos = turnos.filter( tur => tur.paciente.uid == data?.uid)
-        this.dataSource = new MatTableDataSource(turnos)
+        
+        console.log(turnos);
         // console.log(data);
         // console.log(turnos);
       })
     })
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  
+  // mostrarResenia(turno:Turno){
+  //   this.comentarioAEnviar = turno.comentario!;
+  // }
+  mostrarResenia(turno:Turno){
+    this.comentarioAEnviar = turno;
   }
 
-  verResenia(){
 
+  enviarComentario(turno:Turno, estado: string){
+
+    this.turnoAEnviar = {...turno, estado:estado};
+
+    // console.log(this.turnoAEnviar);
+
+    // this.turnoService.modificarTurno(data, turno.id);
   }
-
+  enviarEncuesta(turno:Turno){
+    this.turnoAEnviar = {...turno};
+  }
   calificarAtencion(){
 
   }

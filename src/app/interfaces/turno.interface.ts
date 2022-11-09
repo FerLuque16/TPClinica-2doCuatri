@@ -8,6 +8,8 @@ export interface Turno{
     fecha:string,
     hora:string,
     estado:string,
-    comentario?:string
+    comentario?:string,
+    calificacion?:string,
+    encuesta?:string[]
     
 }

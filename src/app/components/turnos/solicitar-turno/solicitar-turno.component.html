@@ -7,7 +7,28 @@
         </div>
         <div class="row d-flex justify-content-around">
             <div class="col-md-6">
-                <div *ngIf="especialidades.length > 0">
+                <div *ngIf="esAdmin && todosLosPacientes.length > 0">
+                    <h3 class="fw-bold">Seleccione el paciente</h3>
+
+                    <!-- <button mat-raised-button color="primary" class="m-2" *ngFor="let especialidad of especialidades" (click)="especialidadSeleccionada(especialidad)">
+                        {{especialidad | titlecase}} 
+                    </button> -->
+                    <div class="d-flex flex-wrap">
+
+                        <div *ngFor="let paciente of todosLosPacientes" class="text-center">
+                            <button mat-raised-button color="primary" class="m-2 btn-espec" title="{{paciente.nombre | titlecase}} {{paciente.apellido |titlecase}}" (click)="cargarPaciente(paciente)" >
+                                <!-- <img *ngIf="especialidad.urlFoto?.startsWith('https')" src="{{especialidad.urlFoto}}" alt="algo" class="img-espec rounded-circle"> -->
+                                {{paciente.nombre | titlecase}} {{paciente.apellido}}
+                            </button>
+                            <!-- <p class="fw-bold">{{.descripcion | titlecase}}</p> -->
+
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+
+                <div *ngIf="especialidades.length > 0 && mostrarEspec">
                     <h3 class="fw-bold">Seleccione la especialidad</h3>
 
                     <!-- <button mat-raised-button color="primary" class="m-2" *ngFor="let especialidad of especialidades" (click)="especialidadSeleccionada(especialidad)">
@@ -66,7 +87,16 @@
                     
                     <form [formGroup]="turnosForm">
 
-                        
+                        <div *ngIf="esAdmin" class="row ">
+                            <div class="col-md-6">
+                                <!-- <p>El turno es para la especialidad {{especialidad |titlecase}}</p> -->
+                                <mat-form-field  appearance="fill" class="ancho">
+                                    <mat-label>Paciente</mat-label>
+                                    <input matInput readonly formControlName="paciente" style="text-transform: capitalize;"/>
+                                    
+                                </mat-form-field>
+                            </div>
+                        </div>
 
                         <div class="row ">
                             <div class="col-md-6">
@@ -140,5 +170,6 @@
     
     </div>
 </div>
+
 
 

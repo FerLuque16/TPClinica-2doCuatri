@@ -22,6 +22,20 @@ export class TurnoEspecialistaComponent implements OnInit {
 
   turnoAEnviar!: Turno;
 
+  comentarioAEnviar!: Turno;
+
+  HistoriaClinica ={
+    altura:'',
+    peso:'',
+    temperatura:'',
+    presion:'',
+    datosDinamicos:{
+      clave:'valor'
+    },
+    turno: { paciente:{},especialista:{}}
+
+  }
+
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService,
     private snackBar: MatSnackBar) { }
 
@@ -52,8 +66,15 @@ export class TurnoEspecialistaComponent implements OnInit {
   rechazarTurno(){
 
   }
-  mostrarResenia(){
+  // mostrarResenia(turno:Turno){
+  //   this.comentarioAEnviar = turno.comentario!;
+  // }
+  mostrarResenia(turno:Turno){
+    this.comentarioAEnviar = turno;
+  }
 
+  mostrarCalificacion(turno:Turno){
+    this.comentarioAEnviar = turno;
   }
 
   modificarEstadoTurno(turno:Turno, estado: string){
@@ -72,4 +93,7 @@ export class TurnoEspecialistaComponent implements OnInit {
 
     // this.turnoService.modificarTurno(data, turno.id);
   }
+
+
+  
 }

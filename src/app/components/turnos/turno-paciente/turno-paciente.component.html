@@ -25,9 +25,13 @@
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
                     <td class="align-middle">{{ turno.fecha }} {{turno.hora}}</td>
                     <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
-                    <td><button type="button" class="btn btn-outline-warning fs-6" (click)="verResenia()">Ver reseña</button></td>
-                    <td><button type="button" class="btn btn-outline-success fs-6" (click)="calificarAtencion()">Calificar atencion</button></td>
-                    <td><button type="button" class="btn btn-outline-danger fs-6"  (click)="cancelarTurno()">Cancelar turno</button></td>
+                    
+                    <td >
+                        <button data-bs-toggle="modal" data-bs-target="#modalComentario" *ngIf="turno.comentario" type="button" class="btn btn-outline-warning fs-6 mx-1" (click)="mostrarResenia(turno)">Ver reseña</button>
+                        <button *ngIf="turno.estado == 'realizado' && !turno.calificacion" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-success fs-6 mx-1" (click)="enviarComentario(turno,'calificar')">Calificar atencion</button>
+                        <button *ngIf="turno.estado !='aceptado' && turno.estado!='cancelado' && turno.estado!='realizado' && turno.estado!='rechazado'" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-danger fs-6 mx-1"  (click)="enviarComentario(turno,'cancelado')">Cancelar turno</button>
+                        <button *ngIf="turno.comentario && !turno.encuesta && turno.estado != 'cancelado'" data-bs-toggle="modal" data-bs-target="#modalEncuesta" type="button" class="btn btn-outline-danger fs-6 mx-1" (click)="enviarEncuesta(turno)">Encuesta</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -74,8 +78,11 @@
         </table> -->
         <button mat-raised-button color="warn" routerLink="/home">Volver</button>
     </div>
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <app-modal-turno [dataTurno]="turnoAEnviar"></app-modal-turno>
+    <app-modal-comentario [comentarioTurno]=" comentarioAEnviar"></app-modal-comentario>
+    <app-modal-encuesta [turno]="turnoAEnviar"></app-modal-encuesta>
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -83,7 +90,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               <!-- Message input -->
+               
                <div class="form-outline mb-4">
                 <textarea class="form-control" rows="4" placeholder="Escriba aqui" name="texto">
                 </textarea>
@@ -95,6 +102,6 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> -->
 
 </div>

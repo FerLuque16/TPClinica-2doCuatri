@@ -17,6 +17,8 @@ export class UsuarioService {
 
   rolUsuario :string = '';
 
+  todosLosPacientes:Usuario[] = [];
+
   constructor(private firestore: AngularFirestore, private afAuth: AngularFireAuth) {
     afAuth.authState.subscribe(user => {
       this.idUsuario= user?.uid;
@@ -49,5 +51,17 @@ export class UsuarioService {
               first()
             )
             .toPromise();
+  }
+
+  devolverPacientes(){
+    this.traerUsuarios().subscribe(usuarios =>{
+      usuarios.forEach( user =>{
+        if(user.rol == 'paciente'){
+          this.todosLosPacientes.push(user);
+        }
+      })
+    })
+
+    return this.todosLosPacientes;
   }
 }

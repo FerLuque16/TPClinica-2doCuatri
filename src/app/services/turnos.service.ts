@@ -57,7 +57,7 @@ export class TurnosService {
               }
 
               let ampm = h >= 12 ? 'pm' : 'am';
-            result.push(h + ':' + m + ' ' + ampm);
+            result.push(h + ':' + m + ampm);
         }
     }
     result.pop();

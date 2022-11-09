@@ -7,17 +7,19 @@
 
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
-              <h1 *ngIf="dataTurno" class="modal-title fs-5" id="exampleModalLabel">{{dataTurno.estado}}</h1>
+            <div class="modal-header" *ngIf="dataTurno">
+              <h1 *ngIf="dataTurno.estado == 'cancelado'" class="modal-title fs-5" id="exampleModalLabel">Deje un comentario de por que cancela el turno</h1>
+              <h1 *ngIf="dataTurno.estado == 'rechazado'" class="modal-title fs-5" id="exampleModalLabel">Deje un comentario de por que rechaza el turno</h1>
+              <h1 *ngIf="dataTurno.estado == 'realizado'" class="modal-title fs-5" id="exampleModalLabel">Deje un comentario de la consulta y diagnostico realizado</h1>
+              <h1 *ngIf="dataTurno.estado == 'calificar'" class="modal-title fs-5" id="exampleModalLabel">Califique la atencion de la consulta</h1>
+              <!-- <h1 *ngIf="dataTurno" class="modal-title fs-5" id="exampleModalLabel">{{dataTurno.estado}}</h1> -->
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetForm()"></button>
             </div>
             <div class="modal-body">
                <!-- Message input -->
                <div class="form-outline mb-4">
                 <textarea formControlName="comentario" class="form-control" rows="4" placeholder="Escriba aqui" name="texto">
-                </textarea>
-                
-                
+                </textarea>          
             </div>
             </div>
             <div class="modal-footer">

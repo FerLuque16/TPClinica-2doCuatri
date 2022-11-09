@@ -25,13 +25,15 @@
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
                     <td class="align-middle">{{ turno.fecha }} {{turno.hora}}</td>
                     <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
-                    <td><button type="button" class="btn btn-outline-danger fs-6"  (click)="cancelarTurno()">Cancelar turno</button></td>
+                    <td >
+                        <button *ngIf="turno.estado !='aceptado' && turno.estado!='cancelado' && turno.estado!='realizado' && turno.estado!='rechazado'" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-danger fs-6 mx-1"  (click)="enviarComentario(turno,'cancelado')">Cancelar turno</button>    
+                    </td>
                 </tr>
             </tbody>
         </table>
 
         <button mat-raised-button color="warn" routerLink="/home">Volver</button>
     </div>
-    
+    <app-modal-turno [dataTurno]="turnoAEnviar"></app-modal-turno>
 </div>
 
