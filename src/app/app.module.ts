@@ -20,6 +20,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { UsuarioModule } from './components/usuarios/usuario.module';
 import { DisponibilidadEspecialistaComponent } from './components/disponibilidad-especialista/disponibilidad-especialista.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MostrarHistoriaClinicaComponent } from './components/mostrar-historia-clinica/mostrar-historia-clinica.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     HomeComponent,
     PerfilComponent,
-    DisponibilidadEspecialistaComponent
+    DisponibilidadEspecialistaComponent,
+    MostrarHistoriaClinicaComponent
   ],
   imports: [
     BrowserModule,

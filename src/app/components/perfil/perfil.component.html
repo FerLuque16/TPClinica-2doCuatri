@@ -143,6 +143,9 @@
           </div> -->
         </div>
       </div>
+      <div class="row" *ngIf="user && user.rol == 'paciente' && user.historiaClinica">
+        <button mat-button color="primary" data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica">Mostrar Historia Clinica</button>
+      </div>
       <div *ngIf="userRol == 'especialista'" class="row">
 
         <h2>Seleccione su disponibilidad</h2>
@@ -158,3 +161,5 @@
       </div>
     </div>
   </section>
+
+  <app-mostrar-historia-clinica [historiaClinica]="user.historiaClinica" *ngIf="user && user.rol == 'paciente' && user.historiaClinica"></app-mostrar-historia-clinica>

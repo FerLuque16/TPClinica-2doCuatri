@@ -29,7 +29,7 @@ export class ModalTurnoComponent implements OnInit {
 
 
   enviarDatos(){
-    console.log(this.dataTurno);
+    
 
     
 
@@ -47,7 +47,7 @@ export class ModalTurnoComponent implements OnInit {
   }
 
   resetForm(){
-    console.log(this.dataTurno);
+    
     this.dataForm.reset();
   }
 

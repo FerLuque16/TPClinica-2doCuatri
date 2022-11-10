@@ -1,8 +1,8 @@
-<div class="modal fade" id="modalHistoriaClinica" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="mostrarHistoriaClinica" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
-        <form [formGroup]="historiaClinicaForm">
-            <div class="modal-content">
+        
+            <div class="modal-content" >
                 <div class="modal-header">
                   <!-- <h1 *ngIf="dataTurno" class="modal-title fs-5" id="exampleModalLabel">{{dataTurno.estado}}</h1> -->
                   <h1>Historia Clinica</h1>
@@ -15,28 +15,32 @@
                         <div class="d-flex flex-column w-25 mx-3">
                             <mat-form-field appearance="fill">
                                 <mat-label>Altura</mat-label>
-                                <input matInput type="text" formControlName="altura">
+                                <input matInput type="text">
+                                {{historiaClinica.altura}}
                             </mat-form-field>
                             <!-- <mat-error *ngIf="encuestaForm.controls['texto'].errors?.['minlength']">El texto debe tener 6 caracteres como minimo</mat-error>  -->
                         </div>
                         <div class="d-flex flex-column w-25 mx-3">
                             <mat-form-field appearance="fill">
                                 <mat-label>Peso</mat-label>
-                                <input matInput type="text" formControlName="peso">
+                                <input matInput type="text">
+                                {{historiaClinica.peso}}
                             </mat-form-field>
                             <!-- <mat-error *ngIf="encuestaForm.controls['texto'].errors?.['minlength']">El texto debe tener 6 caracteres como minimo</mat-error>  -->
                         </div>
                         <div class="d-flex flex-column w-25 mx-3">
                             <mat-form-field appearance="fill">
                                 <mat-label>Temperatura</mat-label>
-                                <input matInput type="text" formControlName="temperatura">
+                                <input matInput type="text" >
+                                {{historiaClinica.temperatura}}
                             </mat-form-field>
-                            <!-- <mat-error *ngIf="encuestaForm.controls['texto'].errors?.['minlength']">El texto debe tener 6 caracteres como minimo</mat-error>  -->
+        
                         </div>
                         <div class="d-flex flex-column w-25 mx-3">
                             <mat-form-field appearance="fill">
-                                <mat-label>Pesion</mat-label>
-                                <input matInput type="text" formControlName="presion">
+                                <mat-label>Presion</mat-label>
+                                <input matInput type="text" >
+                                {{historiaClinica.presion}}
                             </mat-form-field>
                             <!-- <mat-error *ngIf="encuestaForm.controls['texto'].errors?.['minlength']">El texto debe tener 6 caracteres como minimo</mat-error>  -->
                         </div> 
@@ -44,51 +48,35 @@
                     </div>
                     <hr>
                     <div class="d-flex flex-column">
-                        <div class="row">
+                        <div class="row" *ngFor="let dato of historiaClinica.datosDinamicos |keyvalue">
                             <mat-form-field appearance="fill" class="w-25 mx-3">
-                                <mat-label>Dato 1</mat-label>
-                                <input matInput type="text" formControlName="dato1">
+                                <mat-label>{{dato.key |titlecase}}</mat-label>
+                                <input matInput type="text" >
                             </mat-form-field>
                             <mat-form-field appearance="fill" class="w-25 mx-3" >
-                                <mat-label>Valor</mat-label>
-                                <input matInput type="text" formControlName="valorDato1">
+                                
+                                <input matInput type="text" >{{dato.value}}
                             </mat-form-field>
                         </div>
-                        <div class="row">
-                            <mat-form-field appearance="fill" class="w-25 mx-3" >
-                                <mat-label>Dato 2</mat-label>
-                                <input matInput type="text" formControlName="dato2">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-25 mx-3" >
-                                <mat-label>Valor</mat-label>
-                                <input matInput type="text" formControlName="valorDato2">
-                            </mat-form-field>
-                        </div>
-                        <div class="row">
-                            <mat-form-field appearance="fill" class="w-25 mx-3" >
-                                <mat-label>Dato 3</mat-label>
-                                <input matInput type="text" formControlName="dato3">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-25 mx-3" >
-                                <mat-label>Valor</mat-label>
-                                <input matInput type="text" formControlName="valorDato3">
-                            </mat-form-field>
-                        </div>
+                        
                     </div>
                    <!-- <div class="form-outline mb-4">
                     <p>{{comentarioTurno}}</p>               
                     </div> -->
                 </div>
                 <div class="modal-footer">
-                    <mat-error *ngIf="historiaClinicaForm.controls['valorDato1'].errors?.['required']">Debe cargar al menos 1 dato dinamico</mat-error>
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
-                  <button class="btn btn-primary" data-bs-dismiss="modal" [disabled]="historiaClinicaForm.invalid" (click)="enviar()">Enviar</button>
+                    
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <!-- <button class="btn btn-primary" data-bs-dismiss="modal" [disabled]="historiaClinicaForm.invalid" (click)="enviar()">Enviar</button> -->
                   <!-- <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="encuestaForm.invalid" (click)="enviarEncuesta()">Enviar</button> -->
                 </div>
               </div>
-        </form>
+        
       
     </div>
 
 </div>
+
+
+
 

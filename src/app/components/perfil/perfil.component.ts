@@ -26,6 +26,7 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUserLogged().subscribe(async data =>{
       this.user = await this.userService.obtenerUsuario(data?.uid);
+      console.log(this.user);
       this.userRol = this.user?.rol;
       this.listaEspecialidades = this.user?.especialidades!;
 

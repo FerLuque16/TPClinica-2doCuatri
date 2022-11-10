@@ -173,10 +173,12 @@ export class RegistroComponent implements OnInit {
         this.imgService.subirArchivo(this.selectedFile1,this.usuario.imagen1,this.selectedFile2,this.usuario.imagen2);
 
       }else if(this.tipoUsuario == 'especialista'){
+        delete this.usuario.historiaClinica;
         this.imgService.subirArchivo(this.selectedFile1,this.usuario.imagen1);
         this.usuario.habilitado = false;
 
       }else{
+        delete this.usuario.historiaClinica;
         delete this.usuario.especialidades;
         delete this.usuario.obraSocial;
         delete this.usuario.habilitado;

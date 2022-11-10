@@ -1,3 +1,5 @@
+import { HistoriaClinica } from "./historiaClinica.interface";
+
 export interface Usuario{
     nombre:string,
     apellido:string,
@@ -12,5 +14,6 @@ export interface Usuario{
     habilitado?:boolean,
     rol:string,
     uid:string,
-    captcha?:string
+    captcha?:string,
+    historiaClinica?:HistoriaClinica
 }
