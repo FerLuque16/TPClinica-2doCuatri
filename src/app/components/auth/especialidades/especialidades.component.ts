@@ -42,7 +42,14 @@ export class EspecialidadesComponent implements OnInit {
   cargarEspecialidades(){
     this.servEsp.traerTodasLasEspecialidades().subscribe(
       esp => {
-        this.listaEspecialidades = esp;        
+        this.listaEspecialidades = esp;
+
+        this.listaEspecialidades.forEach(espec =>{
+          this.imgService.descargarImagen(espec.urlFoto).subscribe(url =>{
+            espec.urlFoto = url;
+          })   
+        })
+           
       }
     )
   }
