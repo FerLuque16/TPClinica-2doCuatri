@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Turno } from 'src/app/interfaces/turno.interface';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { TurnosService } from 'src/app/services/turnos.service';
@@ -13,7 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ModalTurnoComponent implements OnInit {
 
+  mostrarModalHistoriaClinica: boolean = false;
   @Input() dataTurno!:Turno;
+  
   dataForm!: FormGroup;
   constructor(private fb:FormBuilder, private turnoService: TurnosService, private snackBar: MatSnackBar) {
     this.dataForm = fb.group({
@@ -41,6 +43,7 @@ export class ModalTurnoComponent implements OnInit {
     
     this.turnoService.modificarTurno(this.dataTurno, this.dataTurno.id);
     this.dataForm.reset();
+    // this.mostrarModalHistoriaClinica = true;
   }
 
   resetForm(){

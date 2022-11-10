@@ -13,6 +13,8 @@ export class AuthService {
 
   rolUsuario: any;
 
+  usuarioDB : any;
+
   constructor(private afAuth: AngularFireAuth, private router:Router, private userService:UsuarioService, private snackBar: MatSnackBar) { }
 
   registrar(email:string,password:string){
@@ -36,12 +38,43 @@ export class AuthService {
             })
   }
 
-  login(email:string,password:string){
+  async login(email:string,password:string){
     return  this.afAuth.signInWithEmailAndPassword(email,password)
-            .then(result =>{            
+            .then(async result =>{       
+              this.usuarioDB = await this.userService.devolverDataUsuarioDB(result.user?.uid);
+              
+              console.log(this.usuarioDB);
                 if(result.user?.emailVerified !== true){
+                  this.logout();
                   this.enviarMailVerificacion();
                   this.snackBar.open(`Su cuenta no esta verficada. Consulte a su casilla de mensajes en ${result.user?.email}`,'Cerrar');
+                }
+                else if (result.user?.emailVerified){
+                  switch (this.usuarioDB.rol) {
+                    case 'especialista':
+                      if(this.usuarioDB.habilitado){
+                        this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
+                        this.router.navigate(['/home'])
+                      }
+                      else{
+                        this.logout();
+                        this.snackBar.open('Su cuenta no fue habilitada, comuniquese con un administrador','Cerrar');
+                      }
+                      break;
+                    case 'paciente':
+                      this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
+                      this.router.navigate(['/home'])
+                      
+                      break;
+                    case 'admin':
+                      this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
+                      this.router.navigate(['/home'])
+                      break;
+                  
+                    default:
+                      break;
+                  }
+                  
                 }
                 else{
                   this.router.navigate(['/home'])

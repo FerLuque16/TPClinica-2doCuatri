@@ -19,6 +19,8 @@ export class UsuarioService {
 
   todosLosPacientes:Usuario[] = [];
 
+  
+
   constructor(private firestore: AngularFirestore, private afAuth: AngularFireAuth) {
     afAuth.authState.subscribe(user => {
       this.idUsuario= user?.uid;
@@ -63,5 +65,16 @@ export class UsuarioService {
     })
 
     return this.todosLosPacientes;
+  }
+
+  public async devolverDataUsuarioDB(id:string | undefined){
+    return this.firestore
+      .collection<Usuario>('usuarios').doc(id)
+      .valueChanges()
+      .pipe(
+        tap((data) => data),
+        first()
+      )
+      .toPromise();
   }
 }

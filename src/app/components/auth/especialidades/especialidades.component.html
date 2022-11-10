@@ -61,10 +61,18 @@
                         </mat-form-field>
                     </div>
                 </div>                
+                <div class="row">
+                    <div class="col-md-6">
+                      <mat-label>Imagen de perfil</mat-label>
+                      <button class="ancho__file" type="button" class="ancho" mat-raised-button color="primary" (click)="fileInput1.click()">Elija su imagen de perfil</button>
+                      <input hidden (change)="onFileSelected1($event)" #fileInput1 type="file" accept=".jpg, .png, .jpeg, .svg" formControlName="urlFoto" >
+                      <span class="file-name" *ngIf="imagenPath1">{{imagenPath1}}</span>
+                    </div>
+                </div>                
             </div>
             <div class="modal-footer">
                 <button type="button" mat-flat-button color="warn" data-bs-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
-                <button [disabled]="formEspecialidad.invalid" type="submit" mat-flat-button color="accent" (click)="cerrarModal()" >Guardar</button>
+                <button [disabled]="formEspecialidad.invalid" type="submit" mat-flat-button color="accent" (click)="nuevaEspecialidad()" >Guardar</button>
             </div>
         </form>
       </div>

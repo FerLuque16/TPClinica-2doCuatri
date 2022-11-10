@@ -1,30 +1,30 @@
 <div class="body">
     <div class="d-flex justify-content-center align-items-center gap-5">
-        <mat-card *ngIf="userRol == 'admin'" class="example-card" routerLink="/usuarios">
+        <mat-card *ngIf="userRol == 'admin'" class="example-card slide-in-fwd-center" routerLink="/usuarios">
             <mat-card-header class="justify-content-center">
               <mat-card-title>Ver usuarios</mat-card-title>
             </mat-card-header>
             <img mat-card-image src="./assets/img/team.png" alt="Users" height="300px" width="300px">
           </mat-card>
-        <mat-card *ngIf="userRol != 'admin'" class="example-card" [routerLink]="userRol == 'paciente' ? '/turnos/turnos-paciente' : '/turnos/turnos-especialista'">
+        <mat-card *ngIf="userRol != 'admin'" class="example-card slide-in-fwd-center" [routerLink]="userRol == 'paciente' ? '/turnos/turnos-paciente' : '/turnos/turnos-especialista'">
             <mat-card-header class="justify-content-center">
               <mat-card-title class="text-center">Mis turnos</mat-card-title>
             </mat-card-header>
             <img mat-card-image src="./assets/img/calendar-color-icon.png" height="300px" width="300px" alt="Turnos">        
         </mat-card>
-        <mat-card *ngIf="userRol == 'admin'" class="example-card" [routerLink]="'/turnos/turnos-todos'">
+        <mat-card *ngIf="userRol == 'admin'" class="example-card slide-in-fwd-center" [routerLink]="'/turnos/turnos-todos'">
           <mat-card-header class="justify-content-center">
             <mat-card-title class="text-center">Turnos de la clinica</mat-card-title>
           </mat-card-header>
           <img mat-card-image src="./assets/img/calendar-color-icon.png" height="300px" width="300px" alt="Turnos">        
       </mat-card>
-        <mat-card *ngIf="userRol != 'especialista'" class="example-card" [routerLink]="'/turnos/solicitar-turno'">
+        <mat-card *ngIf="userRol != 'especialista'" class="example-card slide-in-fwd-center" [routerLink]="'/turnos/solicitar-turno'">
             <mat-card-header class="justify-content-center">
               <mat-card-title class="text-center">Solicitar turno</mat-card-title>
             </mat-card-header>
             <img mat-card-image src="./assets/img/medical-appointment.png" height="300px" width="300px" alt="Turnos">        
         </mat-card>
-        <mat-card class="example-card" [routerLink]="'/perfil'">
+        <mat-card class="example-card slide-in-fwd-center" [routerLink]="'/perfil'">
             <mat-card-header class="justify-content-center">
               <mat-card-title class="text-center">Mi perfil</mat-card-title>
             </mat-card-header>

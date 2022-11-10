@@ -11,13 +11,18 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class UsuariosComponent implements OnInit {
   especialistas : Usuario[] = [];
   pacientes: Usuario[]=[];
+  todosLosUsuarios: Usuario[] = [];
 
   columnasPacientes: string[] = ['nombre','apellido','dni','email','obraSocial'];
   columnasEspecialistas : string[] = ['nombre', 'apellido', 'dni', 'email','especialidad','habilitado'];
+
+  columnasUsuarios: string[] = ['nombre', 'apellido', 'dni','edad', 'email','rol']
   constructor(private userService:UsuarioService) { }
 
   ngOnInit(): void {
     this.userService.traerUsuarios().subscribe( users =>{
+      console.log(users);
+      this.todosLosUsuarios = users;
       this.pacientes = users.filter( pac => pac.rol === 'paciente');
       this.especialistas = users.filter( med => med.rol === 'especialista')
 

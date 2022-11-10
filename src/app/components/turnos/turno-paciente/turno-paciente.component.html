@@ -6,13 +6,18 @@
         <div *ngIf="turnos.length == 0" class="text-center">
             <h3>No hay turnos cargados</h3>
         </div>
+        <mat-form-field appearance="fill" style="font-size: 14px;width: 100%;">
+            <mat-label>Filtre los Resultados</mat-label>
+            <input matInput (keyup)="filtrarTabla($event)" placeholder="Filtre la Tabla" #input>
+        </mat-form-field>
         <table *ngIf="turnos.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nombre de Paciente</th>
                     <th scope="col">Especialista</th>
                     <th scope="col">Especialidad</th>
-                    <th scope="col">Fecha y hora</th>         
+                    <th scope="col">Fecha</th>         
+                    <th scope="col">Hora</th>         
                     <th scope="col">Estado</th>         
         
                 </tr>
@@ -23,7 +28,8 @@
                     <th scope="row" class="align-middle">{{ turno.paciente.nombre |titlecase}} {{turno.paciente.apellido |titlecase}}</th>
                     <td class="align-middle">{{ turno.especialista.nombre |titlecase }} {{ turno.especialista.apellido |titlecase}}</td>
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
-                    <td class="align-middle">{{ turno.fecha }} {{turno.hora}}</td>
+                    <td class="align-middle">{{ turno.fecha }}</td>
+                    <td class="align-middle">{{turno.hora}}</td>
                     <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
                     
                     <td >

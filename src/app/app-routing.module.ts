@@ -8,27 +8,36 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 const routes: Routes = [
   {
     path:'bienvenido',
-    component:BienvenidoComponent
+    component:BienvenidoComponent,
+    data:{animation:'Bienvenido'}
   },
   {
     path:'home',
-    component:HomeComponent
+    component:HomeComponent,
+    data:{animation:'Home'}
+    
   },
   {
     path:'perfil',
-    component:PerfilComponent
+    component:PerfilComponent,
+    data:{animation:'Perfil'}
   },
   {
     path:'auth',
-    loadChildren:()=>import('./components/auth/auth.module').then(m => m.AuthModule)
+    loadChildren:()=>import('./components/auth/auth.module').then(m => m.AuthModule),
+    data:{animation: 'Auth'}
+    
+    
   },
   {
     path:'usuarios',
-    loadChildren:()=>import('./components/usuarios/usuario.module').then(m => m.UsuarioModule)
+    loadChildren:()=>import('./components/usuarios/usuario.module').then(m => m.UsuarioModule),
+    data:{animation: 'Usuarios'}
   },
   { 
     path: 'turnos',
-    loadChildren: () => import('./components/turnos/turnos.module').then(m => m.TurnosModule) 
+    loadChildren: () => import('./components/turnos/turnos.module').then(m => m.TurnosModule),
+    data:{animation: 'Turnos'} 
   },
   {
     path:'',redirectTo: 'bienvenido', pathMatch:'full'

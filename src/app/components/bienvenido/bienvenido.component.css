@@ -2,7 +2,7 @@ mat-card:hover{
     cursor: pointer;
 }
 .body{
-    height: calc(100% - 52px);
+    height: calc(100vh - 52px);
     /* height: 100%; */
     display: flex;
     justify-content: center;

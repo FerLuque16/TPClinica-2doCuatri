@@ -16,6 +16,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableExporterModule } from 'mat-table-exporter';
+
+
 
 
 
@@ -41,7 +44,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTableModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableExporterModule
+    
+    
+    
+    
+    
+    
   ]
 })
 export class MaterialModule { }

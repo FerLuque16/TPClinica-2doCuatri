@@ -10,11 +10,12 @@ import { mergeMap } from 'rxjs';
 @Component({
   selector: 'app-turno-todos',
   templateUrl: './turno-todos.component.html',
-  styleUrls: ['./turno-todos.component.css']
+  styleUrls: ['./turno-todos.component.css'],
 })
 export class TurnoTodosComponent implements OnInit {
 
   turnos:Turno[] = [];
+  turnosAux: Turno[] = [];
   user!: Usuario | undefined;
   userUid!:string;
   userRol!:string | undefined;
@@ -41,7 +42,98 @@ export class TurnoTodosComponent implements OnInit {
     // this.turnoService.modificarTurno(data, turno.id);
   }
 
-  cancelarTurno(){
+  filtrarTabla(event: Event | any) {
+    
+    const filterValue = (event.target as HTMLInputElement).value.toLocaleLowerCase();
+    
+    let filtrar = true;
+    
+    if(filterValue.length == 1 && event.key != 'Backspace'){
+      this.turnosAux = this.turnos;      
+      
+      //console.log('entro');      
+    }else if(filterValue.length == 0 && event.key == 'Backspace'){
+      this.turnos = this.turnosAux;
+      filtrar=false;
+    }
+    //console.log(this.turnosAux);
+    
+    if(filtrar){
+      //console.log(this.todosLosTurnos);
+      let turnosFiltrados : Turno[] = [];
+      console.log(filterValue);
+      
+      this.turnosAux.forEach(
+        
+        t=>{
+          // console.log(`${t.paciente.nombre} ${t.paciente.apellido}`.toLocaleLowerCase());
+          if(t.especialidad.toLowerCase().includes(filterValue)){
+            //console.log('entro');            
+            if(!turnosFiltrados.includes(t)){
+              turnosFiltrados.push(t)
+            }
+          }
+          if(`${t.paciente.nombre} ${t.paciente.apellido}`.toLowerCase().includes(filterValue)){
+            //console.log('entro al 2');
+            
+            if(!turnosFiltrados.includes(t)){
+              turnosFiltrados.push(t)
+            }
+          }
+          if(`${t.especialista.nombre} ${t.especialista.apellido}`.toLowerCase().includes(filterValue)){
+            //console.log('entro al 2');
+            if(!turnosFiltrados.includes(t)){
+              turnosFiltrados.push(t)
+            }
+          }
+          if(t.fecha.includes(filterValue)){
+            //console.log('entro al 2');
+            if(!turnosFiltrados.includes(t)){
+              turnosFiltrados.push(t)
+            }
+          }
+          if(t.hora.includes(filterValue)){
+            //console.log('entro al 2');
+            if(!turnosFiltrados.includes(t)){
+              turnosFiltrados.push(t)
+            }
+          }
+          if(t.estado.toLowerCase().includes(filterValue)){
+            //console.log('entro al 2');
+            if(!turnosFiltrados.includes(t)){
+              turnosFiltrados.push(t)
+            }
+          }
+          
+          
+          // if(t.paciente.nombre.toLowerCase().includes(filterValue)){
+          //   //console.log('entro al 2');
+          //   if(!turnosFiltrados.includes(t)){
+          //     turnosFiltrados.push(t)
+          //   }
+          // }
+          // if(t.paciente.apellido.toLowerCase().includes(filterValue)){
+          //   //console.log('entro al 2');
+          //   if(!turnosFiltrados.includes(t)){
+          //     turnosFiltrados.push(t)
+          //   }
+          // }
+          // if(t.especialista.nombre.toLowerCase().includes(filterValue)){
+          //   //console.log('entro al 2');
+          //   if(!turnosFiltrados.includes(t)){
+          //     turnosFiltrados.push(t)
+          //   }
+          // }
+          // if(t.especialista.apellido.toLowerCase().includes(filterValue)){
+          //   //console.log('entro al 2');
+          //   if(!turnosFiltrados.includes(t)){
+          //     turnosFiltrados.push(t)
+          //   }
+          // }
+        }
+      )
+      this.turnos = turnosFiltrados;
+    }
     
   }
 

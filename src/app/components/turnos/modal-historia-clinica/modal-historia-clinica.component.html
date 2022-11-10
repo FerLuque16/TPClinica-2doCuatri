@@ -1,0 +1,67 @@
+<div class="modal fade" id="modalHistoriaClinica" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                  <!-- <h1 *ngIf="dataTurno" class="modal-title fs-5" id="exampleModalLabel">{{dataTurno.estado}}</h1> -->
+                  <h1>Historia Clinica</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                </div>
+                <div class="modal-body">
+                   <!-- Message input -->
+                   
+                   <div class="d-flex flex-column">
+        
+                        <h2>Califique del 1 al 10 la atencion</h2>
+                       <div class="d-flex justify-content-center align-items-center">
+                            <mat-slider
+                                thumbLabel
+                                [displayWith]="formatLabel"
+                                tickInterval="1"
+                                step="1"
+                                min="0"
+                                max="10"
+                                aria-label="units"
+                                
+                                >
+                                
+                            </mat-slider>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <h2 id="example-radio-group-label">Seleccione la calificacion de la atencion</h2>
+                            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" >
+                                <div class="d-flex flex-column">
+                                    <mat-radio-button class="example-radio-button" value="muy mala">Muy mala</mat-radio-button>
+                                    <mat-radio-button class="example-radio-button mt-1"  value="mala">Mala</mat-radio-button>
+                                    <mat-radio-button class="example-radio-button mt-1"  value="regular">Regular</mat-radio-button>
+                                    <mat-radio-button class="example-radio-button mt-1"  value="buena">Buena</mat-radio-button>
+                                    <mat-radio-button class="example-radio-button mt-1"  value="muy buena">Muy buena</mat-radio-button>
+                                </div>
+                                
+                            </mat-radio-group>
+                        </div>
+        
+                        <div class="d-flex flex-column">
+                            <h2>¿Que se puede mejorar en la clinica?</h2>
+                            <textarea class="form-control" rows="4" placeholder="Escriba aqui" name="texto">
+                            </textarea>
+                            <!-- <mat-error *ngIf="encuestaForm.controls['texto'].errors?.['minlength']">El texto debe tener 6 caracteres como minimo</mat-error>  -->
+                        </div>
+                   </div>
+                   <!-- <div class="form-outline mb-4">
+                    <p>{{comentarioTurno}}</p>               
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="enviar()">Enviar</button>
+                  <!-- <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="encuestaForm.invalid" (click)="enviarEncuesta()">Enviar</button> -->
+                </div>
+              </div>
+        </form>
+      
+    </div>
+
+</div>
+

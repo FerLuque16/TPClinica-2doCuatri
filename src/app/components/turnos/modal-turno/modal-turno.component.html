@@ -24,9 +24,13 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">Cerrar</button>
+              <!-- <button *ngIf="dataTurno && dataTurno.estado == 'realizado'" type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalHistoriaClinica" [disabled]="dataForm.invalid" (click)="enviarDatos()">Enviar</button>
+              <button *ngIf="dataTurno && dataTurno.estado != 'realizado'" type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="dataForm.invalid" (click)="enviarDatos()">Enviar</button> -->
               <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="dataForm.invalid" (click)="enviarDatos()">Enviar</button>
             </div>
           </div>
         </div>
     </form>
 </div>
+
+<!-- <app-modal-historia-clinica [dataTurno]="dataTurno"></app-modal-historia-clinica> -->
