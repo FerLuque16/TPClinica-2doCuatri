@@ -68,7 +68,7 @@ export class RegistroComponent implements OnInit {
     this.auth.getUserLogged().subscribe(async data =>{
       this.user = await this.usuarioService.obtenerUsuario(data?.uid);
       this.rolLogueado = this.user?.rol;
-      console.log(this.rolLogueado)
+      
       
     })
     setTimeout(() => {
@@ -77,7 +77,7 @@ export class RegistroComponent implements OnInit {
   }
 
   cambio(){
-    console.log(this.selected);
+    
     // if(this.selected == 'Otro'){
     //   //this.registroForm.controls['especialidad'].setValue('');
     // }
@@ -95,7 +95,7 @@ export class RegistroComponent implements OnInit {
 
     
 
-    console.log(this.imagenPath1)
+    
 
 
 
@@ -107,7 +107,7 @@ export class RegistroComponent implements OnInit {
 
     this.imagenPath2 = event.target.files[0].name.replaceAll(' ','-');
 
-    console.log(this.imagenPath2)
+    
 
   }
 
@@ -194,7 +194,7 @@ export class RegistroComponent implements OnInit {
       this.registroForm.reset();
 
     } catch (error) {
-      console.log('Error en el registro')
+      
       this.snackBar.open(`Error en el registro`,`Cerrar`)
     }
 
@@ -204,7 +204,7 @@ export class RegistroComponent implements OnInit {
 
   onRolSeleccionado(event:any){
     // console.log(this.registroForm.value.tipo);
-    console.log(event)
+    
     if(event.target.dataset.tipo == 'paciente')
     {
       this.tipoUsuario = 'paciente';
@@ -252,7 +252,7 @@ export class RegistroComponent implements OnInit {
     }
   }
   mostrarAlgo(event:any){
-    console.log(event.target.dataset.tipo)
+    
   }
 
   volver(){

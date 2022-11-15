@@ -102,12 +102,12 @@ export class TurnoEspecialistaComponent implements OnInit {
     if(filtrar){
       //console.log(this.todosLosTurnos);
       let turnosFiltrados : Turno[] = [];
-      console.log(filterValue);
+      
       
       this.turnosAux.forEach(
         
         t=>{
-          console.log(`${t.paciente.nombre} ${t.paciente.apellido}`.toLocaleLowerCase());
+          
           if(t.especialidad.toLowerCase().includes(filterValue)){
             //console.log('entro');            
             if(!turnosFiltrados.includes(t)){

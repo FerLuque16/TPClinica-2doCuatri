@@ -35,7 +35,7 @@ export class TurnoPacienteComponent implements OnInit {
       this.turnoService.traerTurnos().subscribe(turnos =>{
         this.turnos = turnos.filter( tur => tur.paciente.uid == data?.uid)
         
-        console.log(turnos);
+        
         // console.log(data);
         // console.log(turnos);
       })
@@ -89,7 +89,7 @@ export class TurnoPacienteComponent implements OnInit {
     if(filtrar){
       //console.log(this.todosLosTurnos);
       let turnosFiltrados : Turno[] = [];
-      console.log(filterValue);
+      
       
       this.turnosAux.forEach(
         

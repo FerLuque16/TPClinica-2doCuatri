@@ -12,6 +12,7 @@ export class MostrarHistoriaClinicaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

@@ -44,8 +44,7 @@ export class ModalHistoriaClinicaComponent implements OnInit {
     return value;
   }
   enviar(){
-    console.log(this.dataTurno.paciente.uid);
-    console.log(this.historiaClinicaForm.value);
+    
 
     let altura = this.historiaClinicaForm.get('altura')?.value;
     let peso = this.historiaClinicaForm.get('peso')?.value;
@@ -58,7 +57,7 @@ export class ModalHistoriaClinicaComponent implements OnInit {
     }
 
     for(const key in datosDinamicos){
-      if(!key){
+      if(!key || key=='null' || key == 'undefined' || !datosDinamicos[key]){
         delete datosDinamicos[key];
       }
       
@@ -80,6 +79,7 @@ export class ModalHistoriaClinicaComponent implements OnInit {
 
    
     this.userService.actualizarUsuario(data, this.dataTurno.paciente.uid);
+    this.turnoService.modificarTurno(data,this.dataTurno.id);
     this.historiaClinicaForm.reset();
     this.snackBar.open('Se guardo la historia clinica correctamente','Cerrar');
   }

@@ -42,6 +42,7 @@ const routes: Routes = [
   {
     path:'',redirectTo: 'bienvenido', pathMatch:'full'
   },
+  { path: 'pacientes-atendidos', loadChildren: () => import('./components/pacientes-atendidos/pacientes-atendidos.module').then(m => m.PacientesAtendidosModule) },
   
 ];
 

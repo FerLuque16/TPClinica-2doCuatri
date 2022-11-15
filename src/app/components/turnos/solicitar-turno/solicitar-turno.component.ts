@@ -124,7 +124,7 @@ export class SolicitarTurnoComponent implements OnInit {
           this.especialidades.forEach(e =>{
             if(e == data.descripcion && !this.especialidadesFiltradasObjeto.includes(data)){
               this.imagenService.descargarImagen(data.urlFoto).subscribe(url =>{
-                console.log(url);
+                
                 data.urlFoto = url;
               })
               this.especialidadesFiltradasObjeto.push(data)

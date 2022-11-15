@@ -144,7 +144,10 @@
         </div>
       </div>
       <div class="row" *ngIf="user && user.rol == 'paciente' && user.historiaClinica">
-        <button mat-button color="primary" data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica">Mostrar Historia Clinica</button>
+        <button class="m-2 w-25" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica">Mostrar Historia Clinica</button>
+        <button class="m-2 w-25" mat-raised-button color="primary" (click)="descargarHistoriaClinica(user.historiaClinica)">
+          Descargar historia clinica
+        </button>
       </div>
       <div *ngIf="userRol == 'especialista'" class="row">
 
@@ -153,10 +156,23 @@
         <app-disponibilidad-especialista [especialidades]="listaEspecialidades" [especialista]="user!"></app-disponibilidad-especialista>
       </div>
 
-      <div class="row">
-          <div class="col-3">
+      <div *ngIf="userRol == 'paciente'" >
+        <h2 class="fw-bold">Seleccione el especialista para descargar las atenciones realizadas por él</h2>
+        <div class="d-flex">
+          <div *ngFor="let especialista of listaEspecialistas" class="mx-5">
+            <button mat-raised-button class="m-2 btn-espec rounded-circle" color="primary"  (click)="especialistaSeleccionado(especialista)">
+                <img *ngIf="especialista.imagen1?.startsWith('https')" src="{{especialista.imagen1}}" alt="algo" class="img-espec rounded-circle">
+            </button>
+            <p class="fw-bold text-center">{{especialista.nombre | titlecase}} {{especialista.apellido}}</p>
+          </div>
+        </div>
+       
+      </div>
 
-              <button mat-raised-button color="primary" routerLink="/home">Volver</button>
+      <div class="row">
+        <div class="col-3">
+
+            <button mat-raised-button color="primary" routerLink="/home">Volver</button>
           </div>
       </div>
     </div>

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { mergeMap } from 'rxjs';
 import { Especialidad } from 'src/app/interfaces/especialidad.interface';
+import { HistoriaClinica } from 'src/app/interfaces/historiaClinica.interface';
+import { Turno } from 'src/app/interfaces/turno.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { ImagenService } from 'src/app/services/imagen.service';
+import { PdfService } from 'src/app/services/pdf.service';
+import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 
@@ -21,78 +26,99 @@ export class PerfilComponent implements OnInit {
 
   listaEspecialidades: string[] = [];
 
-  constructor(private authService: AuthService, private userService: UsuarioService, private imagenService: ImagenService) { }
+  turnosDelUsuario: Turno[] = [];
+
+  listaEspecialistasAux:string[] = [];
+
+  listaEspecialistas: Usuario[] = [];
+
+  turnosDelUsuarioFiltrado: Turno[] = [];
+
+  constructor(private authService: AuthService, private userService: UsuarioService, private imagenService: ImagenService,
+              private turnosService: TurnosService,private pdfService: PdfService ) { }
 
   ngOnInit(): void {
-    this.authService.getUserLogged().subscribe(async data =>{
-      this.user = await this.userService.obtenerUsuario(data?.uid);
-      console.log(this.user);
-      this.userRol = this.user?.rol;
-      this.listaEspecialidades = this.user?.especialidades!;
+    this.traerTurnos();
+    // this.authService.getUserLogged().subscribe(async data =>{
+    //   this.user = await this.userService.obtenerUsuario(data?.uid);
+    //   console.log(this.user);
+    //   this.userRol = this.user?.rol;
+    //   this.listaEspecialidades = this.user?.especialidades!;
 
-      this.imagenService.descargarImagen(this.user?.imagen1).subscribe(url =>{
-        this.urlImagen = url;
+    //   this.imagenService.descargarImagen(this.user?.imagen1).subscribe(url =>{
+    //     this.urlImagen = url;
 
-        console.log(this.urlImagen);
+    //     console.log(this.urlImagen);
+    //   })
+    // })
+
+    // this.turnosService.traerTurnos().subscribe(turnos =>{
+    //   console.log(turnos);
+    //   this.turnosDelUsuario = turnos.filter(t =>{
+        
+    //     console.log(t.paciente.uid, this.user?.uid );
+    //     return t.paciente.uid == this.user?.uid;
+    //   })
+    //   console.log(this.turnosDelUsuario);
+    // })
+
+    
+
+
+    
+  }
+  traerTurnos(){
+    this.authService.getUserLogged().pipe(
+      mergeMap(async res1 => {
+        this.user = await this.userService.devolverDataUsuarioDB(res1?.uid);
+        this.userRol = this.user?.rol;
+        this.listaEspecialidades = this.user?.especialidades!;
+        this.imagenService.descargarImagen(this.user?.imagen1).subscribe(url =>{
+          this.urlImagen = url;
+  
+          
+        })
+      })
+    ).subscribe(data =>{
+      this.turnosService.traerTurnos().subscribe(turnos =>{
+        this.turnosDelUsuario = turnos.filter(t => t.paciente.uid == this.user?.uid && t.estado == 'realizado');
+        // console.log(this.turnosDelUsuario);
+        this.turnosDelUsuario.forEach( tu =>{
+          
+          if(!this.listaEspecialistasAux.includes(tu.especialista.uid)){
+            this.listaEspecialistasAux.push(tu.especialista.uid)
+            
+          }
+        })
+
+        for(let i = 0;i < this.listaEspecialistasAux.length; i++){
+          for(let j = 0; j< this.turnosDelUsuario.length; j++){
+            if(this.turnosDelUsuario[j].especialista.uid == this.listaEspecialistasAux[i]){
+              this.listaEspecialistas.push(this.turnosDelUsuario[j].especialista);
+              break;
+            }
+          }
+        }
+
+        
+
       })
     })
   }
 
-  coleccionDisponibilidad={
-    medico:{},
-    especialidad:{},
-    duracion:{},
-    desde:'',
-    hasta:'',
-    dias:{
-      lunes:{
-        duracion:30,
-        cantidadDeTurnos:4,
-        desde:'12:00',
-        hasta:'14:00'
-      },
-      martes:{
-        duracion:30,
-        cantidadDeTurnos:4,
-        desde:'desde',
-        hasta:'12:00'},
-      miercoles:{
-        duracion:30,
-        cantidadDeTurnos:4,
-        desde:'desde',
-        hasta:'14:00'},
-      jueves:{
-        duracion:30,
-        cantidadDeTurnos:4,
-        desde:'desde',
-        hasta:'hasta'
-      },
-      viernes:{
-        duracion:30,
-        cantidadDeTurnos:4,
-        desde:'desde',
-        hasta:'hasta'
-      },
-      sabado:{
-        duracion:30,
-        cantidadDeTurnos:4,
-        desde:'desde',
-        hasta:'hasta'
-      }
-    }
-
+  descargarHistoriaClinica(historiaClinica:HistoriaClinica){
+    this.pdfService.descargarHistoriaClinica(historiaClinica);
   }
 
-  coleccionTurnos={
-    turno:{
-      medico:{},
-      paciente:{},
-      especialidad:{},
-      estado:'',
-      dia:'Lunes',
-      desde:'12:00',
-      hasta:'12:30',
-    }
+  especialistaSeleccionado(especialista:Usuario){
+    
 
+    this.turnosDelUsuarioFiltrado = this.turnosDelUsuario.filter( turno => turno.especialista.uid == especialista.uid);
+
+    
+
+    this.pdfService.descargarAtencionesFiltradas(this.turnosDelUsuarioFiltrado);
   }
+
+ 
 }

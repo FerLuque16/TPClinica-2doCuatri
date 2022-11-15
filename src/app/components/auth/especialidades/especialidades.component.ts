@@ -56,19 +56,18 @@ export class EspecialidadesComponent implements OnInit {
 
   async nuevaEspecialidad(){
     this.especialidadNueva = this.formEspecialidad.value;
-    console.log(this.formEspecialidad.get('imagen')?.value);
+    
     if(this.imagenPath1 == ''){
       this.especialidadNueva.urlFoto = 'protesis.png';
-      console.log('No tiene foto');
+      
     }
     else{
       this.especialidadNueva.urlFoto = this.imagenPath1;
       this.imgService.subirArchivo(this.selectedFile1,this.especialidadNueva.urlFoto!);
-      console.log(this.selectedFile1,this.especialidadNueva.urlFoto! );
+      
     }
     // this.especialidadNueva = this.formEspecialidad.value;
-    console.log(this.selectedFile1,this.especialidadNueva.urlFoto! );
-    console.log(this.especialidadNueva); 
+    
     
     this.servEsp.guardarEspecialidad(this.especialidadNueva);
     // this.especialidadAAgregar.emit(this.formEspecialidad.value)
@@ -83,7 +82,7 @@ export class EspecialidadesComponent implements OnInit {
 
   abrirModal(){
     this.mostrarModal = true;
-    console.log('Aprete el boton')
+    
   }
 
   cerrarModal(){
@@ -104,7 +103,7 @@ export class EspecialidadesComponent implements OnInit {
 
     
 
-    console.log(this.imagenPath1)
+    
 
 
 

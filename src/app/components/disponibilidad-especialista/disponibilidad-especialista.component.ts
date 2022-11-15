@@ -78,8 +78,7 @@ export class DisponibilidadEspecialistaComponent implements OnInit {
     let horaDesde = parseInt(this.disponibilidadForm.get('horaDesde')?.value);
     let horaHasta = parseInt(this.disponibilidadForm.get('horaHasta')?.value);
 
-    console.log(horaDesde,typeof(horaDesde));
-    console.log(horaHasta,typeof(horaHasta));
+    
     if(horaDesde == horaHasta || horaDesde > horaHasta){
 
       

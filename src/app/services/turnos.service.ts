@@ -24,6 +24,8 @@ export class TurnosService {
     return this.turnos = this.itemsCollection.valueChanges();
   }
 
+  
+
   modificarTurno(data: any, id: string){
     this.firestore.collection('turnos').doc(id).set(data,{merge:true});
   }

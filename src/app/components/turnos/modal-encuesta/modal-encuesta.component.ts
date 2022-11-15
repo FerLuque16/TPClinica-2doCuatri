@@ -32,7 +32,7 @@ export class ModalEncuestaComponent implements OnInit {
     return value;
   }
   enviarEncuesta(){
-    console.log(this.turno);
+    
     // let encuesta = {...this.encuestaForm.value};
 
     let data={
@@ -50,7 +50,7 @@ export class ModalEncuestaComponent implements OnInit {
 
 
 
-    console.log(this.encuestaForm.value);
+    
   }
 
 }

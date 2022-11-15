@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Log } from '../interfaces/log.interface';
+import { LogService } from './log.service';
 import { UsuarioService } from './usuario.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +18,17 @@ export class AuthService {
 
   usuarioDB : any;
 
-  constructor(private afAuth: AngularFireAuth, private router:Router, private userService:UsuarioService, private snackBar: MatSnackBar) { }
+  nuevoLog!: Log;
+
+  constructor(private afAuth: AngularFireAuth, private router:Router, private userService:UsuarioService, private snackBar: MatSnackBar,
+              private logService:LogService) { }
 
   registrar(email:string,password:string){
     return  this.afAuth
             .createUserWithEmailAndPassword(email,password)
             .then(result =>{
               this.usuario = result.user;
-              console.log(this.usuario)
-              // console.log(this.user)
+              
               this.enviarMailVerificacion();
             })
   }
@@ -42,8 +47,13 @@ export class AuthService {
     return  this.afAuth.signInWithEmailAndPassword(email,password)
             .then(async result =>{       
               this.usuarioDB = await this.userService.devolverDataUsuarioDB(result.user?.uid);
+
+              let fecha = this.devolverFecha();
+              let email = result.user?.email;
+
+              this.nuevoLog = {email: email, fecha:fecha}
               
-              console.log(this.usuarioDB);
+              
                 if(result.user?.emailVerified !== true){
                   this.logout();
                   this.enviarMailVerificacion();
@@ -53,6 +63,7 @@ export class AuthService {
                   switch (this.usuarioDB.rol) {
                     case 'especialista':
                       if(this.usuarioDB.habilitado){
+                        this.logService.guardarLog(this.nuevoLog);
                         this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
                         this.router.navigate(['/home'])
                       }
@@ -62,11 +73,13 @@ export class AuthService {
                       }
                       break;
                     case 'paciente':
+                      this.logService.guardarLog(this.nuevoLog);
                       this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
                       this.router.navigate(['/home'])
                       
                       break;
                     case 'admin':
+                      this.logService.guardarLog(this.nuevoLog);
                       this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
                       this.router.navigate(['/home'])
                       break;
@@ -86,13 +99,13 @@ export class AuthService {
   loginSinVerificacion(email:string,password:string){
     return  this.afAuth.signInWithEmailAndPassword(email,password)
             .then( async result =>{
-                  console.log(result.user?.uid)
+                  
                   // this.userService.obtenerUsuario(result.user?.uid).subscribe(doc =>{
                   //   this.rolUsuario = doc.data()?.rol;
                   //   // console.log(this.rolUsuario.rol)
                   // });
                   this.rolUsuario = await this.userService.obtenerUsuario(result.user?.uid);
-                  console.log(this.rolUsuario)
+                  
                   this.router.navigate(['/home'])
             })
               
@@ -127,6 +140,13 @@ export class AuthService {
       // this.logout();
       this.router.navigate(['/bienvenido']);
     }
+  }
+
+  devolverFecha(){
+    let date = new Date()
+    let mes = date.getMonth()+1;
+    let fecha = `${date.getDate()}/${mes}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+    return fecha;
   }
 
 }

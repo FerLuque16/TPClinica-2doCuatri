@@ -18,7 +18,7 @@
                 <h2 class="text-center">Especialistas</h2>
             
             
-            <app-especialistas class="d-flex justify-content-center row"></app-especialistas>
+                <app-especialistas class="d-flex justify-content-center row"></app-especialistas>
             </div>
             
             <div class="d-flex justify-content-center row">
@@ -27,6 +27,31 @@
                 <app-pacientes class="d-flex justify-content-center row"></app-pacientes>
             </div>
 
+            <div class="row d-flex justify-content-center">
+
+                <div  *ngFor="let usuario of todosLosUsuarios" class="card m-3" style="width: 18rem;">
+                    <img *ngIf="usuario.imagen1.startsWith('https')" [src]="usuario.imagen1" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title fw-bold">{{usuario.nombre|titlecase}} {{usuario.apellido|titlecase}}</h5>
+                      <p class="card-text">Este usuario es un {{usuario.rol|titlecase}}.</p>
+                      <button href="#" class="btn btn-primary" (click)="descargarDatos(usuario)">Descargar Datos</button>
+                      <button *ngIf="usuario.rol == 'paciente' && usuario.historiaClinica"  class="btn btn-primary mt-1" (click)="descargarAtenciones(usuario)">Descargar atenciones</button>
+                      <button *ngIf="usuario.rol == 'paciente' && !usuario.historiaClinica"  class="btn btn-primary mt-1" disabled>Este paciente no tiene atenciones realizadas</button>
+                      <button *ngIf="usuario.rol == 'paciente' && usuario.historiaClinica"  class="btn btn-primary mt-1" (click)="descargarHistoriaClinica(usuario.historiaClinica)">Historia Clinica</button>
+                    </div>
+                  </div>
+                <!-- <div *ngFor="let usuario of todosLosUsuarios" class="text-center letrasBlancas p-2 mr-2 mb-2 card-usuario">
+                    <button mat-raised-button color="primary" class="m-2 btn-pac rounded-circle" (click)="bajarInfoAtencion(usuario)" *ngIf="usuario.rol == 'paciente'">
+                        <img [src]="usuario.imagen1.startsWith('https') ? usuario.imagen1 : '/assets/images/gif-buscar.gif'" alt="img-perfil-paciente" class="img-pac rounded-circle">                
+                    </button>
+                    <button mat-raised-button color="primary" class="m-2 btn-pac rounded-circle" *ngIf="usuario.rol != 'paciente'">
+                        <img [src]="usuario.imagen1.startsWith('https') ? usuario.imagen1 : '/assets/images/gif-buscar.gif'" alt="img-perfil-paciente" class="img-pac rounded-circle">                
+                    </button>
+                    <p style="font-size: large;" class="letrasBlancas">{{ usuario.nombre }} {{ usuario.apellido }}</p>
+                    <button data-toggle="modal" data-target="#modalVerHistClin" class="mr-1 botonGris" mat-flat-button *ngIf="usuario.rol == 'paciente' && usuario.historiaClinica" (click)="verHistClin(usuario.historiaClinica)">Historia Clínica</button>
+                </div> -->
+    
+            </div>
             <div class="d-flex justify-content-center row">
                 <h2 class="text-center">Todos los usuarios</h2>
                 <table mat-table matTableExporter [dataSource]="todosLosUsuarios" class="mat-elevation-z8" #exporter="matTableExporter">

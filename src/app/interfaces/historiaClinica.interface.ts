@@ -6,7 +6,9 @@ export interface HistoriaClinica{
     temperatura: number,
     presion: number,
     turno: string,
-    datosDinamicos:{}
+    datosDinamicos:{
+        [key:string]:string | number
+    }
     
 
     

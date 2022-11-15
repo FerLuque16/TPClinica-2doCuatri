@@ -61,7 +61,7 @@ export class TurnoTodosComponent implements OnInit {
     if(filtrar){
       //console.log(this.todosLosTurnos);
       let turnosFiltrados : Turno[] = [];
-      console.log(filterValue);
+      
       
       this.turnosAux.forEach(
         
