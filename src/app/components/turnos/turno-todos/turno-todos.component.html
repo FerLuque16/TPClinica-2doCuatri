@@ -10,22 +10,28 @@
             <mat-label>Filtre los Resultados</mat-label>
             <input matInput (keyup)="filtrarTabla($event)" placeholder="Filtre la Tabla" #input>
         </mat-form-field> -->
-        <mat-form-field appearance="fill" style="font-size: 14px;width: 25%;">
-            <mat-label>Filtrar por estado</mat-label>
-            <input matInput [(ngModel)]="textoFiltroEstado" placeholder="Filtre la Tabla">
-        </mat-form-field>
-        <mat-form-field appearance="fill" style="font-size: 14px;width: 25%;">
-            <mat-label>Filtrar por especialidad</mat-label>
-            <input matInput [(ngModel)]="textoFiltroEspecialidad" placeholder="Filtre la Tabla">
-        </mat-form-field>
-        <mat-form-field appearance="fill" style="font-size: 14px;width: 25%;">
-            <mat-label>Filtrar por especialista</mat-label>
-            <input matInput [(ngModel)]="textoFiltroEspecialista" placeholder="Filtre la Tabla">
-        </mat-form-field>
-        <mat-form-field appearance="fill" style="font-size: 14px;width: 25%;">
-            <mat-label>Filtrar por dato de historia clinica</mat-label>
-            <input matInput [(ngModel)]="textoFiltroHistoriaClinica" placeholder="Filtre la Tabla">
-        </mat-form-field>
+        <div class="d-flex flex-wrap justify-content-center">
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por estado</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEstado" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por especialidad</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEspecialidad" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por especialista</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEspecialista" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por paciente</mat-label>
+                <input matInput [(ngModel)]="textoFiltroPaciente" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por dato de historia clinica</mat-label>
+                <input matInput [(ngModel)]="textoFiltroHistoriaClinica" placeholder="Filtre la Tabla">
+            </mat-form-field>
+        </div>
         <table *ngIf="turnos.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
             <thead class="thead-dark">
                 <tr>
@@ -40,7 +46,7 @@
                         
             </thead>
             <tbody>
-                <tr class="trPointer" *ngFor="let turno of turnos |ordenarPorEstado:textoFiltroEstado |filtrarPorEspecialidad:textoFiltroEspecialidad |filtrarPorEspecialista:textoFiltroEspecialista | filtrarPorHistoriaClinica: textoFiltroHistoriaClinica"  >           
+                <tr class="trPointer" *ngFor="let turno of turnos |ordenarPorEstado:textoFiltroEstado |filtrarPorEspecialidad:textoFiltroEspecialidad |filtrarPorEspecialista:textoFiltroEspecialista | filtrarPorHistoriaClinica: textoFiltroHistoriaClinica |filtrarPorPaciente:textoFiltroPaciente"  >           
                     <th scope="row" class="align-middle">{{ turno.paciente.nombre |titlecase}} {{turno.paciente.apellido |titlecase}}</th>
                     <td class="align-middle">{{ turno.especialista.nombre |titlecase }} {{ turno.especialista.apellido |titlecase}}</td>
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
@@ -49,7 +55,7 @@
                     <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
                     <td >
                         <button *ngIf="turno.estado !='aceptado' && turno.estado!='cancelado' && turno.estado!='realizado' && turno.estado!='rechazado'" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-danger fs-6 mx-1"  (click)="enviarComentario(turno,'cancelado')">Cancelar turno</button>    
-                        <button *ngIf="turno.historiaClinica" data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica" type="button" class="btn btn-warning fs-6 mx-1"  (click)="mostrarHistoriaClinica(turno.paciente)">Ver historia clinica</button>    
+                        <button *ngIf="turno.historiaClinica" data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica" type="button" class="btn btn-warning fs-6 mx-1"  (click)="mostrarHistoriaClinica(turno.historiaClinica)">Ver historia clinica</button>    
                     </td>
                 </tr>
             </tbody>

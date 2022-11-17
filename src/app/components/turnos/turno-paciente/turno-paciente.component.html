@@ -6,10 +6,33 @@
         <div *ngIf="turnos.length == 0" class="text-center">
             <h3>No hay turnos cargados</h3>
         </div>
-        <mat-form-field appearance="fill" style="font-size: 14px;width: 100%;">
+        <!-- <mat-form-field appearance="fill" style="font-size: 14px;width: 100%;">
             <mat-label>Filtre los Resultados</mat-label>
             <input matInput (keyup)="filtrarTabla($event)" placeholder="Filtre la Tabla" #input>
-        </mat-form-field>
+        </mat-form-field> -->
+
+        <div class="d-flex flex-wrap justify-content-center">
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por estado</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEstado" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por especialidad</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEspecialidad" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por especialista</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEspecialista" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por paciente</mat-label>
+                <input matInput [(ngModel)]="textoFiltroPaciente" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por dato de historia clinica</mat-label>
+                <input matInput [(ngModel)]="textoFiltroHistoriaClinica" placeholder="Filtre la Tabla">
+            </mat-form-field>
+        </div>
         
         <table *ngIf="turnos.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
             <thead class="thead-dark">
@@ -25,70 +48,110 @@
                         
             </thead>
             <tbody>
-                <tr class="trPointer" *ngFor="let turno of turnos" >           
+                <tr class="trPointer" *ngFor="let turno of turnos |ordenarPorEstado:textoFiltroEstado |filtrarPorEspecialidad:textoFiltroEspecialidad |filtrarPorEspecialista:textoFiltroEspecialista | filtrarPorHistoriaClinica: textoFiltroHistoriaClinica |filtrarPorPaciente:textoFiltroPaciente" >           
                     <th scope="row" class="align-middle">{{ turno.paciente.nombre |titlecase}} {{turno.paciente.apellido |titlecase}}</th>
                     <td class="align-middle">{{ turno.especialista.nombre |titlecase }} {{ turno.especialista.apellido |titlecase}}</td>
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
                     <td class="align-middle">{{ turno.fecha }}</td>
                     <td class="align-middle">{{turno.hora}}</td>
-                    <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
+                    <td class="align-middle fw-bold" [appCambiarColorEstado]="turno.estado">{{ turno.estado |titlecase}} </td>
                     
                     <td >
                         <button data-bs-toggle="modal" data-bs-target="#modalComentario" *ngIf="turno.comentario" type="button" class="btn btn-outline-warning fs-6 mx-1" (click)="mostrarResenia(turno)">Ver reseña</button>
                         <button *ngIf="turno.estado == 'realizado' && !turno.calificacion" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-success fs-6 mx-1" (click)="enviarComentario(turno,'calificar')">Calificar atencion</button>
                         <button *ngIf="turno.estado !='aceptado' && turno.estado!='cancelado' && turno.estado!='realizado' && turno.estado!='rechazado'" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-danger fs-6 mx-1"  (click)="enviarComentario(turno,'cancelado')">Cancelar turno</button>
                         <button *ngIf="turno.comentario && !turno.encuesta && turno.estado != 'cancelado'" data-bs-toggle="modal" data-bs-target="#modalEncuesta" type="button" class="btn btn-outline-danger fs-6 mx-1" (click)="enviarEncuesta(turno)">Encuesta</button>
+                        
+                        <button *ngIf="turno.historiaClinica" data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica" type="button" class="btn btn-warning fs-6 mx-1"  (click)="mostrarHistoriaClinica(turno.historiaClinica)">Ver historia clinica</button>
+    
+                        
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <!-- <mat-form-field appearance="standard">
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-          </mat-form-field>
-
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-            <ng-container matColumnDef="nombre">
-                <th mat-header-cell *matHeaderCellDef>Mi Nombre</th>
-                <td mat-cell *matCellDef="let element">{{element.paciente.nombre |titlecase}} {{element.paciente.apellido}}</td>
-            </ng-container>
-            <ng-container matColumnDef="especialistaNombre">
-                <th mat-header-cell *matHeaderCellDef>Nombre Especialista</th>
-                <td mat-cell *matCellDef="let element">{{element.especialista.nombre |titlecase}}</td>
-            </ng-container>
-            <ng-container matColumnDef="especialistaApellido">
-                <th mat-header-cell *matHeaderCellDef>Apellido Especialista</th>
-                <td mat-cell *matCellDef="let element">{{element.especialista.apellido}}</td>
-            </ng-container>
-            <ng-container matColumnDef="especialidad">
-                <th mat-header-cell *matHeaderCellDef>Especialidad</th>
-                <td mat-cell *matCellDef="let element">{{element.especialidad |titlecase}}</td>
-            </ng-container>
-            <ng-container matColumnDef="fecha">
-                <th mat-header-cell *matHeaderCellDef>Fecha</th>
-                <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
-            </ng-container>
-            <ng-container matColumnDef="hora">
-                <th mat-header-cell *matHeaderCellDef>Hora</th>
-                <td mat-cell *matCellDef="let element">{{element.hora}}</td>
-            </ng-container>
-            <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef>Estado</th>
-                <td mat-cell *matCellDef="let element">{{element.estado |titlecase}}</td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-        </table> -->
         <button mat-raised-button color="warn" routerLink="/home">Volver</button>
     </div>
 
     <app-modal-turno [dataTurno]="turnoAEnviar"></app-modal-turno>
     <app-modal-comentario [comentarioTurno]=" comentarioAEnviar"></app-modal-comentario>
     <app-modal-encuesta [turno]="turnoAEnviar"></app-modal-encuesta>
+    <div  class="modal fade" id="mostrarHistoriaClinica" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div  class="modal-dialog modal-lg">
+            
+                <div class="modal-content" >
+                    <div class="modal-header">
+                      
+                      <h1>Historia Clinica</h1>
+                      
+                    </div>
+                    <div *ngIf="historiaClinica" class="modal-body">
+                       
+                       
+                       <div class="d-flex flex-wrap">
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Altura</mat-label>
+                                    <input matInput type="text" readonly="" value="{{historiaClinica.altura}}">
+                                    
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Peso</mat-label>
+                                    <input matInput type="text" readonly="" value="{{historiaClinica.peso}}">
+                                    
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Temperatura</mat-label>
+                                    <input matInput type="text" readonly value="{{historiaClinica.temperatura}}">
+                                    
+                                </mat-form-field>
+            
+                            </div>
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Presion</mat-label>
+                                    <input matInput type="text" readonly="" value="{{historiaClinica.presion}}">
+                                    
+                                </mat-form-field>
+                                
+                            </div> 
+            
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-column">
+                            <h2>Datos dinamicos</h2>
+                            <div class="row" *ngFor="let dato of historiaClinica.datosDinamicos |keyvalue">
+                                <mat-form-field appearance="fill" class="w-25 mx-3">
+                                    
+                                    <input matInput type="text" readonly value="{{dato.key |titlecase}}">
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" class="w-25 mx-3" >
+                                    
+                                    <input matInput type="text" readonly="" value="{{dato.value}}">
+                                </mat-form-field>
+                            </div>
+                            
+                        </div>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      
+                    </div>
+                  </div>
+            
+          
+        </div>
+    
+    </div>
     <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

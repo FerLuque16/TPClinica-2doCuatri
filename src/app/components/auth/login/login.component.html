@@ -25,15 +25,17 @@
     <div class="d-flex flex-column align-items-center mt-5">
         <h2>Usuarios para ingreso rapido</h2>
         <div class="d-flex  gap-4">
-            <div class="d-flex flex-column heartbeat" *ngFor="let item of  listaUsuarios">
+            <div class="d-flex flex-column heartbeat" *ngFor="let item of  listaUsuarios" appCambiarColorLogin>
                 <button mat-raised-button color="accent"  (click)="cargarDatos(item.email,item.password)"><img *ngIf="item.imagen1.startsWith('https')" [src]="item.imagen1" width="100px">
                     <mat-spinner *ngIf="!item.imagen1.startsWith('https')"></mat-spinner>
                 </button>
-                <h3 class="text-center">{{item.nombre}} {{item.apellido}}</h3>
+                <h3 class="text-center fw-bold">{{item.nombre}} {{item.apellido}}</h3>
             </div>
             
             
         </div>
+
+        <button appCambiarColorLogin> Boton de color</button>
     </div>
 </div>
 

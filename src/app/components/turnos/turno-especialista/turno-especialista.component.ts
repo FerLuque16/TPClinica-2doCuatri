@@ -7,6 +7,7 @@ import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { mergeMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HistoriaClinica } from 'src/app/interfaces/historiaClinica.interface';
 
 @Component({
   selector: 'app-turno-especialista',
@@ -26,17 +27,13 @@ export class TurnoEspecialistaComponent implements OnInit {
 
   comentarioAEnviar!: Turno;
 
-  HistoriaClinica ={
-    altura:'',
-    peso:'',
-    temperatura:'',
-    presion:'',
-    datosDinamicos:{
-      clave:'valor'
-    },
-    turno: { paciente:{},especialista:{}}
+  historiaClinica!:HistoriaClinica;
 
-  }
+  textoFiltroEstado:string ='';
+  textoFiltroEspecialidad:string ='';
+  textoFiltroPaciente:string ='';
+  textoFiltroEspecialista:string ='';
+  textoFiltroHistoriaClinica:string ='';
 
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService,
     private snackBar: MatSnackBar) { }
@@ -151,6 +148,12 @@ export class TurnoEspecialistaComponent implements OnInit {
       this.turnos = turnosFiltrados;
     }
     
+  }
+
+  mostrarHistoriaClinica(historiaClinica:HistoriaClinica){
+    console.log(historiaClinica);
+    this.historiaClinica = historiaClinica!;
+    console.log(historiaClinica);
   }
 
   

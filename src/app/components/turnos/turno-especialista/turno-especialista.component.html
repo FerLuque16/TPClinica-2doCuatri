@@ -7,10 +7,35 @@
             <h3>No hay turnos cargados</h3>
         </div>
 
-        <mat-form-field appearance="fill" style="font-size: 14px;width: 100%;">
+        <!-- <mat-form-field appearance="fill" style="font-size: 14px;width: 100%;">
             <mat-label>Filtre los Resultados</mat-label>
             <input matInput (keyup)="filtrarTabla($event)" placeholder="Filtre la Tabla" #input>
-        </mat-form-field>
+        </mat-form-field> -->
+
+        <div class="d-flex flex-wrap justify-content-center">
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por estado</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEstado" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por especialidad</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEspecialidad" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por especialista</mat-label>
+                <input matInput [(ngModel)]="textoFiltroEspecialista" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por paciente</mat-label>
+                <input matInput [(ngModel)]="textoFiltroPaciente" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por dato de historia clinica</mat-label>
+                <input matInput [(ngModel)]="textoFiltroHistoriaClinica" placeholder="Filtre la Tabla">
+            </mat-form-field>
+        </div>
+
+        
 
         <table *ngIf="turnos.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
             <thead class="thead-dark">
@@ -26,7 +51,7 @@
                         
             </thead>
             <tbody>
-                <tr class="trPointer" *ngFor="let turno of turnos" >           
+                <tr class="trPointer" *ngFor="let turno of turnos |ordenarPorEstado:textoFiltroEstado |filtrarPorEspecialidad:textoFiltroEspecialidad |filtrarPorEspecialista:textoFiltroEspecialista | filtrarPorHistoriaClinica: textoFiltroHistoriaClinica |filtrarPorPaciente:textoFiltroPaciente" >           
                     <th scope="row" class="align-middle">{{ turno.paciente.nombre |titlecase}} {{turno.paciente.apellido |titlecase}}</th>
                     <td class="align-middle">{{ turno.especialista.nombre |titlecase }} {{ turno.especialista.apellido |titlecase}}</td>
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
@@ -35,7 +60,7 @@
                     <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
 
                     <td *ngIf="turno.estado!='aceptado' && turno.estado != 'realizado' && turno.estado != 'cancelado' && turno.estado != 'rechazado'">
-                        <button type="button"  class="btn btn-outline-success" value="aceptado" (click)="modificarEstadoTurno(turno,'aceptado')">
+                        <button type="button"  class="btn btn-outline-success" value="aceptado" (click)="modificarEstadoTurno(turno,'aceptado')" >
                             Aceptar
                         </button>
                     </td>
@@ -60,6 +85,10 @@
                             Ver reseña
                         </button>
                     </td>
+                    <td *ngIf="turno.historiaClinica">
+                        <button  data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica" type="button" class="btn btn-warning fs-6 mx-1"  (click)="mostrarHistoriaClinica(turno.historiaClinica)">Ver historia clinica</button>
+
+                    </td>
                     
                 </tr>
             </tbody>
@@ -69,6 +98,82 @@
     </div>
     <app-modal-turno [dataTurno]="turnoAEnviar"></app-modal-turno>
     <app-modal-comentario [comentarioTurno]="comentarioAEnviar"></app-modal-comentario>
+    <div  class="modal fade" id="mostrarHistoriaClinica" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div  class="modal-dialog modal-lg">
+            
+                <div class="modal-content" >
+                    <div class="modal-header">
+                      
+                      <h1>Historia Clinica</h1>
+                      
+                    </div>
+                    <div *ngIf="historiaClinica" class="modal-body">
+                       
+                       
+                       <div class="d-flex flex-wrap">
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Altura</mat-label>
+                                    <input matInput type="text" readonly="" value="{{historiaClinica.altura}}">
+                                    
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Peso</mat-label>
+                                    <input matInput type="text" readonly="" value="{{historiaClinica.peso}}">
+                                    
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Temperatura</mat-label>
+                                    <input matInput type="text" readonly value="{{historiaClinica.temperatura}}">
+                                    
+                                </mat-form-field>
+            
+                            </div>
+                            <div class="d-flex flex-column w-25 mx-3">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Presion</mat-label>
+                                    <input matInput type="text" readonly="" value="{{historiaClinica.presion}}">
+                                    
+                                </mat-form-field>
+                                
+                            </div> 
+            
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-column">
+                            <h2>Datos dinamicos</h2>
+                            <div class="row" *ngFor="let dato of historiaClinica.datosDinamicos |keyvalue">
+                                <mat-form-field appearance="fill" class="w-25 mx-3">
+                                    
+                                    <input matInput type="text" readonly value="{{dato.key |titlecase}}">
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" class="w-25 mx-3" >
+                                    
+                                    <input matInput type="text" readonly="" value="{{dato.value}}">
+                                </mat-form-field>
+                            </div>
+                            
+                        </div>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      
+                    </div>
+                  </div>
+            
+          
+        </div>
+    
+    </div>
     <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

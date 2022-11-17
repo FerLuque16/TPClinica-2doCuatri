@@ -7,6 +7,7 @@ import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { mergeMap } from 'rxjs';
 import {MatTableDataSource} from '@angular/material/table';
+import { HistoriaClinica } from 'src/app/interfaces/historiaClinica.interface';
 
 @Component({
   selector: 'app-turno-paciente',
@@ -25,6 +26,14 @@ export class TurnoPacienteComponent implements OnInit {
   comentarioAEnviar!:Turno;
 
   textoFiltro:string ='';
+
+  textoFiltroEstado:string ='';
+  textoFiltroEspecialidad:string ='';
+  textoFiltroPaciente:string ='';
+  textoFiltroEspecialista:string ='';
+  textoFiltroHistoriaClinica:string ='';
+
+  historiaClinica!:HistoriaClinica;
 
   
 
@@ -142,6 +151,12 @@ export class TurnoPacienteComponent implements OnInit {
       this.turnos = turnosFiltrados;
     }
     
+  }
+
+  mostrarHistoriaClinica(historiaClinica:HistoriaClinica){
+    console.log(historiaClinica);
+    this.historiaClinica = historiaClinica!;
+    console.log(historiaClinica);
   }
 
 }

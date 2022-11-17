@@ -23,6 +23,7 @@ export class TurnoTodosComponent implements OnInit {
 
   textoFiltroEstado:string ='';
   textoFiltroEspecialidad:string ='';
+  textoFiltroPaciente:string ='';
   textoFiltroEspecialista:string ='';
   textoFiltroHistoriaClinica:string ='';
 
@@ -145,9 +146,10 @@ export class TurnoTodosComponent implements OnInit {
     
   }
 
-  mostrarHistoriaClinica(paciente:Usuario){
-    this.historiaClinica = paciente.historiaClinica!;
-    console.log(paciente.historiaClinica);
+  mostrarHistoriaClinica(historiaClinica:HistoriaClinica){
+    console.log(historiaClinica);
+    this.historiaClinica = historiaClinica!;
+    console.log(historiaClinica);
   }
 
 }

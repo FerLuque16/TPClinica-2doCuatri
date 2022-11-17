@@ -6,6 +6,7 @@ import { EspecialistasComponent } from './especialistas/especialistas.component'
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { UsuariosComponent } from './usuarios.component';
+import { UtilsModule } from 'src/app/utils/utils.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { UsuariosComponent } from './usuarios.component';
     CommonModule,
     UsuarioRoutingModule,
     MaterialModule,
+    UtilsModule
     
   ]
 })

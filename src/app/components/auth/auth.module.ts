@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
 import { CaptchaComponent } from './captcha/captcha.component';
+import { UtilsModule } from 'src/app/utils/utils.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CaptchaComponent } from './captcha/captcha.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    UtilsModule
   ]
 })
 export class AuthModule { }
