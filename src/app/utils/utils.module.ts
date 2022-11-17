@@ -9,6 +9,8 @@ import { FiltrarPorPacientePipe } from './pipes/filtrar-por-paciente.pipe';
 import { CambiarColorEstadoDirective } from './directivas/cambiarColorEstado/cambiar-color-estado.directive';
 import { CambiarColorLoginDirective } from './directivas/cambiarColorLogin/cambiar-color-login.directive';
 import { CambiarColorCardDirective } from './directivas/cambiarColorCard/cambiar-color-card.directive';
+import { FiltrarPorFechaPipe } from './pipes/filtrar-por-fecha.pipe';
+import { FiltrarPorHoraPipe } from './pipes/filtrar-por-hora.pipe';
 
 
 
@@ -22,7 +24,9 @@ import { CambiarColorCardDirective } from './directivas/cambiarColorCard/cambiar
     FiltrarPorPacientePipe,
     CambiarColorEstadoDirective,
     CambiarColorLoginDirective,
-    CambiarColorCardDirective
+    CambiarColorCardDirective,
+    FiltrarPorFechaPipe,
+    FiltrarPorHoraPipe
   ],
   imports: [
     CommonModule
@@ -36,7 +40,9 @@ import { CambiarColorCardDirective } from './directivas/cambiarColorCard/cambiar
     FiltrarPorPacientePipe,
     CambiarColorEstadoDirective,
     CambiarColorLoginDirective,
-    CambiarColorCardDirective
+    CambiarColorCardDirective,
+    FiltrarPorFechaPipe,
+    FiltrarPorHoraPipe
   ]
 })
 export class UtilsModule { }

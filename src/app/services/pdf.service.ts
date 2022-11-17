@@ -102,7 +102,7 @@ export class PdfService {
 
     // this.crearHeader(historiaClinica)
     const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
-    pdf.download();
+    pdf.download('Historia clinica');
   }
 
   async descargarAtencionesFiltradas(turnos:Turno[]){
@@ -124,7 +124,7 @@ export class PdfService {
         {
           toc: {
             id: 'mainToc',
-            title: {text: 'TURNOS REALIZADOS AL PACIENTE', style: 'header'}
+            title: {text: `Turnos de ${turnos[0].paciente.nombre} ${turnos[0].paciente.apellido} realizado por ${turnos[0].especialista.nombre} ${turnos[0].especialista.apellido}`, style: 'header'}
           }
         },
         {
@@ -154,7 +154,7 @@ export class PdfService {
     }
 
     const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
-    pdf.download();
+    pdf.download(`Turnos de ${turnos[0].paciente.nombre} ${turnos[0].paciente.apellido} realizado por ${turnos[0].especialista.nombre} ${turnos[0].especialista.apellido}`);
     //console.log(turnosDelPaciente);
   }
   async descargarAtenciones(paciente:Usuario){

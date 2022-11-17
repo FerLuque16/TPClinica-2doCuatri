@@ -28,6 +28,14 @@
                 <input matInput [(ngModel)]="textoFiltroPaciente" placeholder="Filtre la Tabla">
             </mat-form-field>
             <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por fecha</mat-label>
+                <input matInput [(ngModel)]="textoFiltroFecha" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
+                <mat-label>Filtrar por hora</mat-label>
+                <input matInput [(ngModel)]="textoFiltroHora" placeholder="Filtre la Tabla">
+            </mat-form-field>
+            <mat-form-field class=" mx-5" appearance="fill" style="font-size: 14px;width: 25%;">
                 <mat-label>Filtrar por dato de historia clinica</mat-label>
                 <input matInput [(ngModel)]="textoFiltroHistoriaClinica" placeholder="Filtre la Tabla">
             </mat-form-field>
@@ -46,7 +54,8 @@
                         
             </thead>
             <tbody>
-                <tr class="trPointer" *ngFor="let turno of turnos |ordenarPorEstado:textoFiltroEstado |filtrarPorEspecialidad:textoFiltroEspecialidad |filtrarPorEspecialista:textoFiltroEspecialista | filtrarPorHistoriaClinica: textoFiltroHistoriaClinica |filtrarPorPaciente:textoFiltroPaciente"  >           
+                <tr class="trPointer" *ngFor="let turno of turnos |ordenarPorEstado:textoFiltroEstado |filtrarPorEspecialidad:textoFiltroEspecialidad |filtrarPorEspecialista:textoFiltroEspecialista 
+                | filtrarPorHistoriaClinica: textoFiltroHistoriaClinica |filtrarPorPaciente:textoFiltroPaciente |filtrarPorFecha:textoFiltroFecha |filtrarPorHora:textoFiltroHora"  >           
                     <th scope="row" class="align-middle">{{ turno.paciente.nombre |titlecase}} {{turno.paciente.apellido |titlecase}}</th>
                     <td class="align-middle">{{ turno.especialista.nombre |titlecase }} {{ turno.especialista.apellido |titlecase}}</td>
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>

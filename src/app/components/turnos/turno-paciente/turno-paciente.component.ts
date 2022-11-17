@@ -32,6 +32,8 @@ export class TurnoPacienteComponent implements OnInit {
   textoFiltroPaciente:string ='';
   textoFiltroEspecialista:string ='';
   textoFiltroHistoriaClinica:string ='';
+  textoFiltroFecha:string ='';
+  textoFiltroHora: string = '';
 
   historiaClinica!:HistoriaClinica;
 

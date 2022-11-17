@@ -34,6 +34,8 @@ export class TurnoEspecialistaComponent implements OnInit {
   textoFiltroPaciente:string ='';
   textoFiltroEspecialista:string ='';
   textoFiltroHistoriaClinica:string ='';
+  textoFiltroFecha:string ='';
+  textoFiltroHora: string = '';
 
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService,
     private snackBar: MatSnackBar) { }
@@ -151,9 +153,9 @@ export class TurnoEspecialistaComponent implements OnInit {
   }
 
   mostrarHistoriaClinica(historiaClinica:HistoriaClinica){
-    console.log(historiaClinica);
+    
     this.historiaClinica = historiaClinica!;
-    console.log(historiaClinica);
+    
   }
 
   
