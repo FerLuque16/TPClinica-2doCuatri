@@ -21,6 +21,9 @@ import { UsuarioModule } from './components/usuarios/usuario.module';
 import { DisponibilidadEspecialistaComponent } from './components/disponibilidad-especialista/disponibilidad-especialista.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MostrarHistoriaClinicaComponent } from './components/mostrar-historia-clinica/mostrar-historia-clinica.component';
+import { PacientesAtendidosModule } from './components/pacientes-atendidos/pacientes-atendidos.module';
+
+
 
 
 @NgModule({
@@ -31,7 +34,7 @@ import { MostrarHistoriaClinicaComponent } from './components/mostrar-historia-c
     HomeComponent,
     PerfilComponent,
     DisponibilidadEspecialistaComponent,
-    MostrarHistoriaClinicaComponent
+    // MostrarHistoriaClinicaComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { MostrarHistoriaClinicaComponent } from './components/mostrar-historia-c
     MaterialModule,
     UsuarioModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PacientesAtendidosModule
   ],
   providers: [],
   bootstrap: [AppComponent]

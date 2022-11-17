@@ -6,6 +6,7 @@ import { TurnosService } from 'src/app/services/turnos.service';
 import { ImagenService } from 'src/app/services/imagen.service';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { Turno } from 'src/app/interfaces/turno.interface';
+import { HistoriaClinica } from 'src/app/interfaces/historiaClinica.interface';
 
 
 @Component({
@@ -21,8 +22,15 @@ export class PacientesAtendidosComponent implements OnInit {
   pacientesAtendidosAux : string[] = [];
   displayedColumns: string[] = ['fecha', 'especialidad', 'acciones'];
   detalleTurnosPaciente : Turno[] = []
+
+  mostrarModalComentario:boolean = false;
+  mostrarModalHistoria:boolean = false;
+
+
   turnoResenia !: any;
-  historiaClinicaPac !: any;
+  historiaClinicaPaciente !: any;
+
+  pacienteSeleccionado!:Usuario;
 
   constructor(private userService: UsuarioService, private authService: AuthService, private turnoService: TurnosService,
               private imagenService : ImagenService) { }
@@ -72,20 +80,26 @@ export class PacientesAtendidosComponent implements OnInit {
     })
   }
 
-  verTurnosPaciente(id : string){
-    this.detalleTurnosPaciente = this.turnosMedico.filter(t=> t.paciente.uid == id);
-    //console.log(this.detalleTurnosPaciente);
+  verTurnosPaciente(paciente:Usuario){
+    this.detalleTurnosPaciente = this.turnosMedico.filter(t=> t.paciente.uid == paciente.uid);
+    this.pacienteSeleccionado = paciente;
+    console.log(this.detalleTurnosPaciente);
   }
 
   verResenia(turno : Turno){
     this.turnoResenia = turno;
-    this.turnoResenia.verResenia = true;
+    // this.turnoResenia.verResenia = true;
+
+    this.mostrarModalComentario;
   }
 
-  verHistClin(turno : Turno){
+  verHistClin(historiaClinica: HistoriaClinica){
     // let pacAux = await this.userService.devolverDataUsuarioDB(paciente.uid.toString())
     
     // this.historiaClinicaPac = pacAux?.historiaClinica;
+
+    this.historiaClinicaPaciente = historiaClinica;
+    this.mostrarModalHistoria;
     
     
   }

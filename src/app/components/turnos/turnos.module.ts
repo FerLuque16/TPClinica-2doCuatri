@@ -13,6 +13,8 @@ import { ModalTurnoComponent } from './modal-turno/modal-turno.component';
 import { ModalComentarioComponent } from './modal-comentario/modal-comentario.component';
 import { ModalEncuestaComponent } from './modal-encuesta/modal-encuesta.component';
 import { ModalHistoriaClinicaComponent } from './modal-historia-clinica/modal-historia-clinica.component';
+import { UtilsModule } from 'src/app/utils/utils.module';
+
 
 
 @NgModule({
@@ -32,7 +34,12 @@ import { ModalHistoriaClinicaComponent } from './modal-historia-clinica/modal-hi
     TurnosRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UtilsModule
+  ],
+  exports:[
+    ModalComentarioComponent,
+    ModalHistoriaClinicaComponent
   ]
 })
 export class TurnosModule { }

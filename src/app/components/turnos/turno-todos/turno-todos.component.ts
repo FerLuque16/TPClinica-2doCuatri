@@ -6,6 +6,7 @@ import { DisponibilidadService } from 'src/app/services/disponibilidad.service';
 import { TurnosService } from 'src/app/services/turnos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { mergeMap } from 'rxjs';
+import { HistoriaClinica } from 'src/app/interfaces/historiaClinica.interface';
 
 @Component({
   selector: 'app-turno-todos',
@@ -19,6 +20,13 @@ export class TurnoTodosComponent implements OnInit {
   user!: Usuario | undefined;
   userUid!:string;
   userRol!:string | undefined;
+
+  textoFiltroEstado:string ='';
+  textoFiltroEspecialidad:string ='';
+  textoFiltroEspecialista:string ='';
+  textoFiltroHistoriaClinica:string ='';
+
+  historiaClinica!: HistoriaClinica;
 
   turnoAEnviar!: Turno;
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService) { }
@@ -135,6 +143,11 @@ export class TurnoTodosComponent implements OnInit {
       this.turnos = turnosFiltrados;
     }
     
+  }
+
+  mostrarHistoriaClinica(paciente:Usuario){
+    this.historiaClinica = paciente.historiaClinica!;
+    console.log(paciente.historiaClinica);
   }
 
 }

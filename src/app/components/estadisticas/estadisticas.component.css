@@ -1,0 +1,11 @@
+.graficoTabla{
+     width: 600px !important;
+     height: 300px !important;
+}
+.graficoTorta{
+     width: 400px !important;
+     height: 400px !important;
+}
+table{
+     width: 60%;
+}

@@ -1,6 +1,6 @@
-<div class="modal fade" id="mostrarHistoriaClinica" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div  class="modal fade" id="mostrarHistoriaClinica" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-    <div class="modal-dialog modal-lg">
+    <div  class="modal-dialog modal-lg">
         
             <div class="modal-content" >
                 <div class="modal-header">
@@ -8,7 +8,7 @@
                   <h1>Historia Clinica</h1>
                   <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button> -->
                 </div>
-                <div class="modal-body">
+                <div *ngIf="historiaClinica" class="modal-body">
                    <!-- Message input -->
                    
                    <div class="d-flex flex-wrap">

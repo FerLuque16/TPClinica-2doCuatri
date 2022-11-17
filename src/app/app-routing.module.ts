@@ -42,7 +42,14 @@ const routes: Routes = [
   {
     path:'',redirectTo: 'bienvenido', pathMatch:'full'
   },
-  { path: 'pacientes-atendidos', loadChildren: () => import('./components/pacientes-atendidos/pacientes-atendidos.module').then(m => m.PacientesAtendidosModule) },
+  { 
+    path: 'pacientes-atendidos',
+    loadChildren: () => import('./components/pacientes-atendidos/pacientes-atendidos.module').then(m => m.PacientesAtendidosModule) 
+  },
+  { 
+    path: 'estadisticas',
+    loadChildren: () => import('./components/estadisticas/estadisticas.module').then(m => m.EstadisticasModule) 
+  },
   
 ];
 

@@ -10,6 +10,7 @@
             <mat-label>Filtre los Resultados</mat-label>
             <input matInput (keyup)="filtrarTabla($event)" placeholder="Filtre la Tabla" #input>
         </mat-form-field>
+        
         <table *ngIf="turnos.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
             <thead class="thead-dark">
                 <tr>

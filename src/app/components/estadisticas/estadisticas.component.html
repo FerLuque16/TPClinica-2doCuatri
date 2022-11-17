@@ -1,0 +1,65 @@
+<h1 class="text-center">Estadisticas de la clinica</h1>
+<div class="d-flex justify-content-center align-items-center flex-column row">
+    <h2 class="text-center">Ingresos al sistema</h2>
+    <table mat-table matTableExporter [dataSource]="logs |ordenarFechaDesc" class="mat-elevation-z8" #exporter="matTableExporter">
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{element.email |titlecase}}</td>
+        </ng-container>
+        <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef>Fecha y Horario</th>
+            <td mat-cell *matCellDef="let element">{{element.fecha |date : 'dd/MM/yyyy HH:mm:ss'}}</td>
+        </ng-container>
+        
+
+        <tr mat-header-row *matHeaderRowDef="columnasLog"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasLog;"></tr>
+
+    </table>
+    <!-- <table *ngIf="logs.length > 0" class="table table-bordered table-striped table-hover text-center tablaTurnos">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Email del usuario</th>
+                <th scope="col">Fecha</th>
+                        
+    
+            </tr>
+                    
+        </thead>
+        <tbody>
+            <tr class="trPointer" *ngFor="let log of logs |ordenarFechas" >           
+                <td class="align-middle">{{ log.email |titlecase}}</td>
+                <td class="align-middle">{{ log.fecha |date : 'dd/MM/yyyy HH:mm:ss' }}</td> 
+            </tr>
+        </tbody>
+    </table> -->
+
+    <button mat-raised-button color="primary" class="w-25 mt-4" (click)="exporter.exportTable('xls',{fileName:'logs'})">Descargar los logs en excel</button>
+</div>
+
+<div class="d-flex justify-content-evenly flex-wrap mx-5 mt-5">
+    <div class="m-5">
+        <h2>Cantidad de turnos por especialidades</h2>
+        <canvas id="chartEspecialidades" class="graficoTorta" #chartEspecialidades></canvas>
+        <button mat-raised-button color="primary" (click)="descargarGraficoEspecialidades()">Descargar grafico</button>
+    </div>
+    <div class="m-5 ">
+        <h2>Turnos realizados por fechas</h2>
+        <canvas id="myChart" #myChart class="graficoTabla"></canvas>
+        <button mat-raised-button color="primary" (click)="descargarGraficoTurnoPorFecha()">Descargar grafico</button>
+    </div>
+    <div class="m-5">
+        <h2>Turnos solicitados entre {{hoy |date:'dd/MM/yyyy'}} y {{fechaFutura |date:'dd/MM/yyyy'}}</h2>
+        <canvas id="chartMedicos" class="graficoTorta" #chartMedicos></canvas>
+        <button mat-raised-button color="primary" (click)="descargarGraficoMedico()">Descargar grafico</button>
+    </div>
+    <div class="m-5">
+        <h2>Turnos finalizados entre {{hoy |date:'dd/MM/yyyy'}} y {{fechaFutura |date:'dd/MM/yyyy'}}</h2>
+        <canvas id="chartMedicosFinalizados" class="graficoTorta" #chartMedicosFinalizados></canvas>
+        <button mat-raised-button color="primary" (click)="descargarGraficoMedicoRealizado()">Descargar grafico</button>
+    </div>
+
+</div>
+
+

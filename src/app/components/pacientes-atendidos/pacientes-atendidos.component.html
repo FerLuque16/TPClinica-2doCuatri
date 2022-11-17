@@ -1,5 +1,4 @@
-<p>pacientes-atendidos works!</p>
-<div class="body">    
+<!-- <div class="body">    
     
     <div class="container-fluid">
         <mat-toolbar class="justify-content-center mt-2 mb-2">
@@ -39,10 +38,10 @@
                         <ng-container matColumnDef="acciones">
                             <th mat-header-cell *matHeaderCellDef></th>
                             <td mat-cell *matCellDef="let element">                                
-                                <!-- btn ver reseña -->
+                                
                                 <button data-toggle="modal" data-target="#modalVerComent" class="mr-2 botonGris" mat-flat-button (click)="verResenia(element)">Reseña</button>
                                 
-                                <!-- btn historia clínica  *ngIf="element.historiaClinica"-->
+                                
                                 <button *ngIf="element.historiaClinica" data-toggle="modal" data-target="#modalVerHistClin" mat-flat-button color="accent"  (click)="verHistClin(element)">Historia Clínica</button>
                             </td>
                         </ng-container>
@@ -56,6 +55,62 @@
 
         </div>
     </div>
+</div> -->
+
+<div class="row d-flex justify-content-around flex-column">
+            
+        <h1 class="text-center fw-bold">Pacientes atendidos por usted</h1>
+        
+        <div class="d-flex justify-content-center">
+            <div *ngFor="let paciente of pacientesAtendidos" class="mx-5">
+                <button mat-raised-button color="primary" class="mx-2 btn-espec rounded-circle">
+                    <img *ngIf="paciente.imagen1.startsWith('https')" [src]="paciente.imagen1" alt="img-perfil-paciente" class="img-paciente rounded-circle" (click)="verTurnosPaciente(paciente)">                
+                </button>
+                <p style="font-size: large;">{{ paciente.nombre }} {{ paciente.apellido }}</p>                
+            </div>
+        </div>
+
+   
+
+    
+
+        <div class="d-flex justify-content-center flex-column align-items-center" *ngIf="detalleTurnosPaciente.length > 0">
+            <h2 *ngIf="pacienteSeleccionado" class="text-center">Turnos realizados a {{pacienteSeleccionado.nombre |titlecase}} {{pacienteSeleccionado.apellido|titlecase}}</h2>
+            <table mat-table [dataSource]="detalleTurnosPaciente" class="mat-elevation-z8 w-100">
+
+                <ng-container matColumnDef="especialidad">
+                    <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+                    <td mat-cell *matCellDef="let element">{{ element.especialidad | titlecase }}</td>
+                </ng-container>
+      
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                    <td mat-cell *matCellDef="let element">{{ element.fecha }} {{ element.horario | titlecase }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let element">                                
+                        <!-- btn ver reseña -->
+                        <button data-bs-toggle="modal" data-bs-target="#modalComentario" class="mx-2 botonGris" mat-raised-button color="primary" (click)="verResenia(element)">Reseña</button>
+                        
+                        <!-- btn historia clínica  *ngIf="element.historiaClinica"-->
+                        <button *ngIf="element.historiaClinica" data-bs-toggle="modal" class="mx-2" data-bs-target="#mostrarHistoriaClinica" mat-flat-button color="accent"  (click)="verHistClin(element.historiaClinica)">Historia Clínica</button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+        </div>
+
+   
+
 </div>
+
+<app-modal-comentario [comentarioTurno]="turnoResenia"></app-modal-comentario>
+<app-mostrar-historia-clinica [historiaClinica]="historiaClinicaPaciente"></app-mostrar-historia-clinica>
+<!-- <app-mostrar-historia-clinica></app-mostrar-historia-clinica> -->
+
 <!-- <app-modal-ver-comentario *ngIf="turnoResenia" [turnoParaVer]="turnoResenia"></app-modal-ver-comentario>
 <app-ver-hist-clinica *ngIf="historiaClinicaPac" [histClin]="historiaClinicaPac"></app-ver-hist-clinica> -->

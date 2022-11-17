@@ -54,6 +54,7 @@ export class AuthService {
               this.nuevoLog = {email: email, fecha:fecha}
               
               
+              
                 if(result.user?.emailVerified !== true){
                   this.logout();
                   this.enviarMailVerificacion();
@@ -63,7 +64,9 @@ export class AuthService {
                   switch (this.usuarioDB.rol) {
                     case 'especialista':
                       if(this.usuarioDB.habilitado){
-                        this.logService.guardarLog(this.nuevoLog);
+                        // this.logService.guardarLog(this.nuevoLog);
+                        console.log(this.nuevoLog);
+                        console.log(Date.parse(this.nuevoLog.fecha));
                         this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
                         this.router.navigate(['/home'])
                       }
@@ -73,13 +76,17 @@ export class AuthService {
                       }
                       break;
                     case 'paciente':
-                      this.logService.guardarLog(this.nuevoLog);
+                      // this.logService.guardarLog(this.nuevoLog);
+                      console.log(this.nuevoLog);
+                      console.log(Date.parse(this.nuevoLog.fecha));
                       this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
                       this.router.navigate(['/home'])
                       
                       break;
                     case 'admin':
-                      this.logService.guardarLog(this.nuevoLog);
+                      // this.logService.guardarLog(this.nuevoLog);
+                      console.log(this.nuevoLog);
+                      console.log(Date.parse(this.nuevoLog.fecha));
                       this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
                       this.router.navigate(['/home'])
                       break;
@@ -143,10 +150,17 @@ export class AuthService {
   }
 
   devolverFecha(){
-    let date = new Date()
-    let mes = date.getMonth()+1;
-    let fecha = `${date.getDate()}/${mes}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-    return fecha;
+    // //Cambiar formato
+    const tiempo = new Date().getTime();   
+    const fecha = new Date(tiempo);    
+    const fechaParseada = fecha.toString();
+
+    // let date = new Date()
+    // let mes = date.getMonth()+1;
+    // let fecha = `${date.getDate()}/${mes}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+
+    
+    return fechaParseada;
   }
 
 }

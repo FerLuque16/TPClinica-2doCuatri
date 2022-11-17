@@ -257,6 +257,81 @@ export class PdfService {
     pdf.download();
   }
 
+  async descargarChartTabla(urlChart:string, info:string){
+    this.TDocumentDefinitions = {
+      content: [
+        {
+          // you can also fit the image inside a rectangle
+          image:'snow' ,
+          fit: [100, 100]
+        },
+        {
+          toc: {
+            id: 'mainToc',
+            title: {text: `Grafico de ${info}`, style: 'header'}
+          }
+        },
+        {
+           // optional
+          image:'chart',
+          width:500,
+          height:300
+
+        },
+        {
+          text: 'Fecha de emision: ' + this.hoy + '/' + this.mesActual + '/' + this.añoActual,
+          style: 'header'
+        }
+      ],
+      images: {
+        // in browser is supported loading images via url (https or http protocol) (minimal version: 0.1.67)
+        snow: await this.getBase64ImageFromURL('./assets//img//hospital.png'),
+        chart: urlChart
+  
+      }
+    }
+
+    // this.crearHeader(historiaClinica)
+    const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
+    pdf.download();
+  }
+  async descargarChart(urlChart:string, info:string){
+    this.TDocumentDefinitions = {
+      content: [
+        {
+          // you can also fit the image inside a rectangle
+          image:'snow' ,
+          fit: [100, 100]
+        },
+        {
+          toc: {
+            id: 'mainToc',
+            title: {text: `Grafico de ${info}`, style: 'header'}
+          }
+        },
+        {
+           // optional
+          image:'chart'
+
+        },
+        {
+          text: 'Fecha de emision: ' + this.hoy + '/' + this.mesActual + '/' + this.añoActual,
+          style: 'header'
+        }
+      ],
+      images: {
+        // in browser is supported loading images via url (https or http protocol) (minimal version: 0.1.67)
+        snow: await this.getBase64ImageFromURL('./assets//img//hospital.png'),
+        chart: urlChart
+  
+      }
+    }
+
+    // this.crearHeader(historiaClinica)
+    const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
+    pdf.download();
+  }
+
   setearColumnas(turnos:Turno[]){
     let tableData = [];
 

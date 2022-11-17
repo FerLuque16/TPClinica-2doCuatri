@@ -24,6 +24,8 @@ export class TurnoPacienteComponent implements OnInit {
   turnoAEnviar!: Turno;
   comentarioAEnviar!:Turno;
 
+  textoFiltro:string ='';
+
   
 
   constructor(private userService: UsuarioService, private disponibilidadService: DisponibilidadService, private turnoService: TurnosService, private authService: AuthService) { }

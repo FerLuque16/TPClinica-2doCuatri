@@ -5,13 +5,18 @@
           <div class="modal-content">
             <div class="modal-header">
               <!-- <h1 *ngIf="dataTurno" class="modal-title fs-5" id="exampleModalLabel">{{dataTurno.estado}}</h1> -->
-              <h1>Comentario del turno</h1>
+              <h1>Comentarios del turno</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
             </div>
-            <div class="modal-body">
+            <div *ngIf="comentarioTurno" class="modal-body">
                <!-- Message input -->
                <div class="form-outline mb-4">
+                <h2>Reseña del especialista</h2>
                 <p *ngIf="comentarioTurno">{{comentarioTurno.comentario}}</p>               
+              </div>
+               <div *ngIf="comentarioTurno.calificacion" class="form-outline mb-4">
+                <h2>Reseña del paciente</h2>
+                <p *ngIf="comentarioTurno">{{comentarioTurno.calificacion}}</p>               
               </div>
             </div>
             <div class="modal-footer">

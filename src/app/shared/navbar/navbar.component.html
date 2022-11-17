@@ -8,19 +8,17 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a  *ngIf="!userLogueado" class="nav-link active" routerLink="auth/login">Iniciar sesion</a>
-          <!-- <a *ngIf="!usuarioLogueado" class="nav-link active" routerLink="login">Iniciar sesion</a> -->
+          
           <a  *ngIf="!userLogueado" class="nav-link" routerLink="auth/registro">Registro</a>
-          <!-- <a *ngIf="!usuarioLogueado" class="nav-link" routerLink="registro">Registro</a> -->
-          <!-- <a *ngIf="userLogueado" class="nav-link" routerLink="quiensoy">Perfil</a> -->
+          
           <a *ngIf="userLogueado && userRol == 'admin'" class="nav-link" routerLink="/usuarios">Usuarios</a>
           <a *ngIf="userLogueado" class="nav-link" routerLink="/perfil">Perfil</a>
           <a *ngIf="userLogueado && userRol != 'admin'" class="nav-link" [routerLink]="userRol == 'paciente' ? '/turnos/turnos-paciente' : '/turnos/turnos-especialista'">Mis turnos</a>
           <a *ngIf="userLogueado && userRol != 'especialista'" class="nav-link" routerLink="/turnos/solicitar-turno">Solicitar turno</a>
           <a *ngIf="userLogueado && userRol == 'admin'" class="nav-link" routerLink="/turnos/turnos-todos">Turnos</a>
           <a *ngIf="userLogueado && userRol == 'especialista'" class="nav-link" routerLink="/pacientes-atendidos">Mis pacientes</a>
-          <!-- <a *ngIf="usuarioLogueado" class="nav-link" routerLink="/chat">Chat</a> -->
-          <!-- <a *ngIf="usuarioLogueado" class="nav-link" routerLink="/encuesta">Encuesta</a> -->
-          <!-- <a *ngIf="usuarioLogueado" class="nav-link" routerLink="/juegos/resultados">Resultados</a>                            -->
+          <a *ngIf="userLogueado && userRol == 'admin'" class="nav-link" routerLink="/estadisticas">Estadisticas</a>
+          
           <a *ngIf="userLogueado" class="nav-link"  style="cursor: pointer;" (click)="logout()">Cerrar Sesion</a>
         </div>
       </div>

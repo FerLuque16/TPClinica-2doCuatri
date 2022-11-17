@@ -15,4 +15,9 @@ export class LogService {
   guardarLog(nuevoLog:Log){
     this.firestore.collection('logs').add(nuevoLog);
   }
+
+  traerLogs(){
+    this.itemsCollection = this.firestore.collection<Log>('logs');
+    return this.todosLosLogs = this.itemsCollection.valueChanges();
+  }
 }
