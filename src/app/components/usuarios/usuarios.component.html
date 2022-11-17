@@ -33,7 +33,7 @@
                     <img *ngIf="usuario.imagen1.startsWith('https')" [src]="usuario.imagen1" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title fw-bold">{{usuario.nombre|titlecase}} {{usuario.apellido|titlecase}}</h5>
-                      <p class="card-text">Este usuario es un {{usuario.rol|titlecase}}.</p>
+                      <p class="card-text fw-bold">Este usuario es un {{usuario.rol|titlecase}}.</p>
                       <button href="#" class="btn btn-primary" (click)="descargarDatos(usuario)">Descargar Datos</button>
                       <button *ngIf="usuario.rol == 'paciente' && usuario.historiaClinica"  class="btn btn-primary mt-1" (click)="descargarAtenciones(usuario)">Descargar atenciones</button>
                       <button *ngIf="usuario.rol == 'paciente' && !usuario.historiaClinica"  class="btn btn-primary mt-1" disabled>Este paciente no tiene atenciones realizadas</button>

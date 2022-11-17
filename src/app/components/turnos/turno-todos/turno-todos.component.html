@@ -52,7 +52,7 @@
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
                     <td class="align-middle">{{ turno.fecha }}</td>
                     <td class="align-middle">{{turno.hora}}</td>
-                    <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
+                    <td class="align-middle fw-bold" [appCambiarColorEstado]="turno.estado">{{ turno.estado |titlecase}} </td>
                     <td >
                         <button *ngIf="turno.estado !='aceptado' && turno.estado!='cancelado' && turno.estado!='realizado' && turno.estado!='rechazado'" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-outline-danger fs-6 mx-1"  (click)="enviarComentario(turno,'cancelado')">Cancelar turno</button>    
                         <button *ngIf="turno.historiaClinica" data-bs-toggle="modal" data-bs-target="#mostrarHistoriaClinica" type="button" class="btn btn-warning fs-6 mx-1"  (click)="mostrarHistoriaClinica(turno.historiaClinica)">Ver historia clinica</button>    

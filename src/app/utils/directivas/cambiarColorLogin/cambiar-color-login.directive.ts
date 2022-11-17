@@ -12,7 +12,7 @@ export class CambiarColorLoginDirective {
   }
 
   @HostListener('mouseenter') mouseHover(eventData: Event){
-    console.log(this.el.nativeElement);
+    
     
     this.renderer.setStyle(this.el.nativeElement,'font-weight','bold')
     this.renderer.setStyle(this.el.nativeElement,'color','green')

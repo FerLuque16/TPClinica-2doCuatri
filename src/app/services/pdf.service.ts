@@ -180,7 +180,7 @@ export class PdfService {
         {
           toc: {
             id: 'mainToc',
-            title: {text: 'TURNOS REALIZADOS AL PACIENTE', style: 'header'}
+            title: {text: `Turnos realizados al paciente ${this.primerLetraMayuscula(paciente.nombre)} ${this.primerLetraMayuscula(paciente.apellido)}`, style: 'header'}
           }
         },
         {
@@ -210,7 +210,7 @@ export class PdfService {
     }
 
     const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
-    pdf.download();
+    pdf.download(`Turnos realizados al paciente ${this.primerLetraMayuscula(paciente.nombre)} ${this.primerLetraMayuscula(paciente.apellido)}`);
     //console.log(turnosDelPaciente);
   }
 
@@ -225,7 +225,7 @@ export class PdfService {
         {
           toc: {
             id: 'mainToc',
-            title: {text: 'DATOS DEL PACIENTE', style: 'header'}
+            title: {text: 'DATOS DEL USUARIO', style: 'header'}
           }
         },
         {
@@ -254,7 +254,7 @@ export class PdfService {
     }
 
     const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
-    pdf.download();
+    pdf.download(`Datos del usuario ${this.primerLetraMayuscula(usuario.nombre)} ${this.primerLetraMayuscula(usuario.apellido)}`);
   }
 
   async descargarChartTabla(urlChart:string, info:string){
@@ -293,7 +293,7 @@ export class PdfService {
 
     // this.crearHeader(historiaClinica)
     const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
-    pdf.download();
+    pdf.download(`Grafico de ${info}`);
   }
   async descargarChart(urlChart:string, info:string){
     this.TDocumentDefinitions = {
@@ -329,7 +329,7 @@ export class PdfService {
 
     // this.crearHeader(historiaClinica)
     const pdf = pdfMake.createPdf(this.TDocumentDefinitions);
-    pdf.download();
+    pdf.download(`Grafico de ${info}`);
   }
 
   setearColumnas(turnos:Turno[]){

@@ -57,7 +57,7 @@
                     <td class="align-middle">{{ turno.especialidad |titlecase}}</td>
                     <td class="align-middle">{{ turno.fecha }}</td>
                     <td class="align-middle">{{turno.hora}}</td>
-                    <td class="align-middle fw-bold">{{ turno.estado |titlecase}} </td>
+                    <td class="align-middle fw-bold" [appCambiarColorEstado]="turno.estado">{{ turno.estado |titlecase}} </td>
 
                     <td *ngIf="turno.estado!='aceptado' && turno.estado != 'realizado' && turno.estado != 'cancelado' && turno.estado != 'rechazado'">
                         <button type="button"  class="btn btn-outline-success" value="aceptado" (click)="modificarEstadoTurno(turno,'aceptado')" >

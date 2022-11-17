@@ -64,7 +64,7 @@ export class AuthService {
                   switch (this.usuarioDB.rol) {
                     case 'especialista':
                       if(this.usuarioDB.habilitado){
-                        // this.logService.guardarLog(this.nuevoLog);
+                        this.logService.guardarLog(this.nuevoLog);
                         console.log(this.nuevoLog);
                         console.log(Date.parse(this.nuevoLog.fecha));
                         this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
@@ -76,7 +76,7 @@ export class AuthService {
                       }
                       break;
                     case 'paciente':
-                      // this.logService.guardarLog(this.nuevoLog);
+                      this.logService.guardarLog(this.nuevoLog);
                       console.log(this.nuevoLog);
                       console.log(Date.parse(this.nuevoLog.fecha));
                       this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
@@ -84,7 +84,7 @@ export class AuthService {
                       
                       break;
                     case 'admin':
-                      // this.logService.guardarLog(this.nuevoLog);
+                      this.logService.guardarLog(this.nuevoLog);
                       console.log(this.nuevoLog);
                       console.log(Date.parse(this.nuevoLog.fecha));
                       this.snackBar.open(`Bienvenido ${this.usuarioDB.nombre} ${this.usuarioDB.apellido}`,'Cerrar');
