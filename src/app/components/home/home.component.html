@@ -6,11 +6,23 @@
             </mat-card-header>
             <img mat-card-image src="./assets/img/team.png" alt="Users" height="300px" width="300px">
           </mat-card>
+        <mat-card *ngIf="userRol == 'admin'" class="example-card slide-in-fwd-center" routerLink="/estadisticas">
+            <mat-card-header class="justify-content-center">
+              <mat-card-title>Ver estadisticas</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="./assets/img/trend.png" alt="Users" height="300px" width="300px">
+          </mat-card>
         <mat-card *ngIf="userRol != 'admin'" class="example-card slide-in-fwd-center" [routerLink]="userRol == 'paciente' ? '/turnos/turnos-paciente' : '/turnos/turnos-especialista'">
             <mat-card-header class="justify-content-center">
               <mat-card-title class="text-center">Mis turnos</mat-card-title>
             </mat-card-header>
             <img mat-card-image src="./assets/img/calendar-color-icon.png" height="300px" width="300px" alt="Turnos">        
+        </mat-card>
+        <mat-card *ngIf="userRol == 'especialista'" class="example-card slide-in-fwd-center" [routerLink]="'/pacientes-atendidos'">
+            <mat-card-header class="justify-content-center">
+              <mat-card-title class="text-center">Pacientes atendidos</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="./assets/img/patient.png" height="300px" width="300px" alt="Turnos">        
         </mat-card>
         <mat-card *ngIf="userRol == 'admin'" class="example-card slide-in-fwd-center" [routerLink]="'/turnos/turnos-todos'">
           <mat-card-header class="justify-content-center">

@@ -160,7 +160,7 @@ export class PdfService {
   async descargarAtenciones(paciente:Usuario){
     let turnosDelPaciente: Turno[];
 
-    turnosDelPaciente = this.todosLosTurnos.filter(t => t.paciente.uid == paciente.uid);
+    turnosDelPaciente = this.todosLosTurnos.filter(t => t.paciente.uid == paciente.uid && t.estado == 'realizado');
 
     
 

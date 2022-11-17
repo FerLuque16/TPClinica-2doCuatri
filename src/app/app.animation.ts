@@ -5,10 +5,14 @@ import { trigger, animate, transition, style, group, query, animateChild } from 
 export const misAnimaciones = trigger('routeAnimations',[
     transition('Bienvenido => Auth',slideTo('right')),
     transition('* => Home',slideTo('left')),
+    transition('* => Estadisticas',slideTo('left')),
+    transition('* => PacientesAtendidos',slideTo('right')),
     transition('* => Turnos', enterAndLeave()),
-    transition('* => Perfil', enterAndLeave()),
+    transition('* => Perfil', slideTo('left')),
     transition('* => Usuarios',enterAndLeave()),
     transition('Auth => Bienvenido',slideTo('left')),
+    transition('Estadisticas => *',slideTo('left')),
+    transition('PacientesAtendidos => *',slideTo('left')),
     
 ])
 
